@@ -1,9 +1,17 @@
 function [ N ] = SRootPolynomialMat( M, deg )
-%GenRootPolynomialMat Generate a root-polynomial matrix
+%% GenRootPolynomialMat Generate a root-polynomial matrix
+% Support function for generating root polynomial matrices, it is used by
+% GenCCRootPolynomial() and ApplyCCRootPolynomial(). The user is not 
+% expected to call this function directly.
 %
-% Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
-% University of East Anglia
-% Licensed under the MIT License
+%   References:
+%   Hong, Guowei, M. Ronnier Luo, and Peter A. Rhodes. 
+%   "A study of digital camera colorimetric characterisation based on 
+%   polynomial modelling." (2001).
+%
+%   Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
+%   University of East Anglia
+%   Licensed under the MIT License
 
 r = M(:,1);
 g = M(:,2);

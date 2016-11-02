@@ -1,16 +1,22 @@
 function [ xyz ] = ApplyCCLinear( rgb, ccm )
-%% APPLYCC Apply colour correction matrix on an image
-% Apple colour correction algorithm on a data matrix
+%% ApplyCCLinear Apply linear colour correction matrix on data
 %   Parameters : 
-%       Din : n-times-3 array containing colour triplets, or an 
+%       rgb : n-times-3 array containing colour triplets, or an 
 %             n-times-m-times-3 array containing an image. 
-%       Dout : The same dimension as Din, containing the colour corrected
-%             data. 
 %       ccm : The colour correction matrix.
 %
-% Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
-% University of East Anglia
-% Licensed under the MIT License
+%   Output :
+%       xyz : The same dimension as Din, containing the colour corrected
+%             data. 
+%
+%   Reference: 
+%   Horn, Berthold KP. "Exact reproduction of colored images." 
+%   Computer Vision, Graphics, and Image Processing 26.2 (1984): 135-167.
+%
+%   Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
+%   University of East Anglia
+%   Licensed under the MIT License
+%
 
 din_size = size(rgb);
 

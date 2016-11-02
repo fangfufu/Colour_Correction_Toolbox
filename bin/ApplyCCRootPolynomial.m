@@ -1,16 +1,22 @@
 function [ xyz ] = ApplyCCRootPolynomial( rgb, ccm )
-%% APPLYCC Apply colour correction matrix on an image
-% Apple colour correction algorithm on a data matrix
+%% ApplyCCRootPolynomial Apply root-polynomial colour correction on data
 %   Parameters : 
 %       rgb : n-times-3 array containing colour triplets, or an 
 %             n-times-m-times-3 array containing an image. 
-%       xyz : The same dimension as rgb, containing the colour corrected
-%             data. 
 %       ccm : The colour correction matrix.
 %
-% Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
-% University of East Anglia
-% Licensed under the MIT License
+%   Output :
+%       xyz : The same dimension as rgb, containing the colour corrected
+%             data. 
+%
+%   References:
+%   Finlayson, Graham D., Michal Mackiewicz, and Anya Hurlbert. 
+%   "Color Correction Using Root-Polynomial Regression." 
+%   IEEE Transactions on Image Processing 24.5 (2015): 1460-1470.
+%
+%   Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
+%   University of East Anglia
+%   Licensed under the MIT License
 
 e_invalid_ccm_size = struct();
 e_invalid_ccm_size.identifier = 'ApplyCCRootPolynomial:invalid_ccm_size';

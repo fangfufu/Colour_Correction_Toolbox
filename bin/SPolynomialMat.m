@@ -4,14 +4,14 @@ function [ N ] = SPolynomialMat( M, deg )
 % GenCCPolynomial() and ApplyCCPolynomial(). The user is not expected to
 % call this function directly.
 %
-% References:
-% Hong, Guowei, M. Ronnier Luo, and Peter A. Rhodes. 
-% "A study of digital camera colorimetric characterisation based on 
-% polynomial modelling." (2001).
+%   References:
+%   Hong, Guowei, M. Ronnier Luo, and Peter A. Rhodes. 
+%   "A study of digital camera colorimetric characterisation based on 
+%   polynomial modelling." (2001).
 %
-% Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
-% University of East Anglia
-% Licensed under the MIT License
+%   Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
+%   University of East Anglia
+%   Licensed under the MIT License
 
 r = M(:,1);
 g = M(:,2);

@@ -1,21 +1,23 @@
 function [ xyz ] = ApplyCCPolynomial( rgb, ccm )
-%% ApplyCCPolynomial Apply colour correction matrix on an image
-% Apple colour correction algorithm on a data matrix
+%% ApplyCCPolynomial Apply polynomial colour correction on an image
 %   Parameters : 
 %       rgb : n-times-3 array containing colour triplets, or an 
 %             n-times-m-times-3 array containing an image. 
-%       xyz : The same dimension as rgb, containing the colour corrected
-%             data. 
 %       ccm : The colour correction matrix.
 %
-% References:
-% Hong, Guowei, M. Ronnier Luo, and Peter A. Rhodes. 
-% "A study of digital camera colorimetric characterisation based on 
-% polynomial modelling." (2001).
+%   Output :
+%       xyz : The same dimension as rgb, containing the colour corrected
+%             data.
 %
-% Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
-% University of East Anglia
-% Licensed under the MIT License
+%    References:
+%    Hong, Guowei, M. Ronnier Luo, and Peter A. Rhodes. 
+%    "A study of digital camera colorimetric characterisation based on 
+%    polynomial modelling." (2001).
+% 
+%    Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
+%    University of East Anglia
+%    Licensed under the MIT License
+%
 
 e_invalid_ccm_size = struct();
 e_invalid_ccm_size.identifier = 'ApplyCCPolynomial:invalid_ccm_size';

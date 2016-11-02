@@ -1,4 +1,4 @@
-function M = CCAM(rgb,xyz)
+function M = GenCCAM(rgb,xyz)
 % AMCAL computes the colour correction matrix by using
 % angular minimisation.
 %

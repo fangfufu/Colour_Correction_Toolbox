@@ -1,0 +1,2 @@
+addpath('bin');
+addpath('util');

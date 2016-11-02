@@ -1,5 +1,9 @@
-function [ N ] = GenRootPolynomialMat( M, deg )
-%GENROOTPOLYNOMIALMAT Generate a root-polynomial matrix
+function [ N ] = SRootPolynomialMat( M, deg )
+%GenRootPolynomialMat Generate a root-polynomial matrix
+%
+% Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
+% University of East Anglia
+% Licensed under the MIT License
 
 r = M(:,1);
 g = M(:,2);

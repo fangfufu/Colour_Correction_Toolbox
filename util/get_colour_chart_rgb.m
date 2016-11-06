@@ -1,5 +1,5 @@
-function [ rgb ] = get_patch_rgb( img, rs, cs, sz)
-%DRAW_RECTANGLES Draw rectangle on the colour checker
+function [ rgb ] = get_colour_chart_rgb( img, rs, cs, sz)
+%% get_colour_chart_rgb Get the RGB values from a colour chart
 %   The main purpose of this program is to draw rectangle to indicate
 %   colour patches. 
 %   Parameters:

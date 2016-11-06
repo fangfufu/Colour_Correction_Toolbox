@@ -1,7 +1,28 @@
 function [ out_img ] = UntransformImg( in_img, in_pts, ref_img, ref_pts )
-%% UNTRANSFORM_IMG Transform an image so the camera is above the image.
-%   Transform the input image in such a way so that the camera is 90
-%   degrees above the image. 
+%% UntransformImg Transform an image so the camera is above the image.
+%   Transform a colour checker image in such a way so that the camera is 90
+%   degrees above the plane being imaged. This function is designed to work
+%   with colour checker boards. 
+%
+%   Example:
+%       out_img = UntransformImg(in_img);
+%       The in_img will be displayed. The user then has to select 8 corners
+%       specified by the example image.
+%
+%   Mandatory parameters:
+%       in_img : An image of the chequer board
+%
+%   Optional parameters: 
+%       in_pts : The coordinate of the specified corners on the colour 
+%                checker.
+%       ref_img : The optional reference colour checker board images. 
+%       ref_pts : The coordinate of the corners in the reference tracker
+%       board
+%
+%   Output:
+%       out_img : The image of the colour checker board after
+%       transformation.
+%       
 
 %% Checking what the user has supplied
 if exist('ref_img', 'var')

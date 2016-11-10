@@ -1,4 +1,4 @@
-function [ ] = draw_colour_chart( XYZ, wp )
+function [ ] = DrawColourChart( XYZ, wp )
 %% DRAW_COLOUR_CHART Draw the Macbeth Colour Chart
 %   The purpose of this function is to determine how the Macbeth colour
 %   chart was oriented, when we measured it using the spectroradiometer

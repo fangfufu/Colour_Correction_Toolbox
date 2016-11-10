@@ -1,5 +1,12 @@
 function [rgb, ccs_struct] = GetColourChartRGB(img, ccs_struct)
 %% GetColourChartRGB Get the RGB values off a colour chart
+%   Parameters:
+%       img - the raw image of a colour checker
+%
+%   Outputs:
+%       ccs_struct : the struct which describes the configuration of the
+%                    colour checker.
+%       rgb : A matrix with the rgb values of the colour checker
 
 %% Sanity check
 if ndims(img) ~= 3
@@ -150,8 +157,8 @@ k = 1;
 rgb = zeros(x_count * y_count, 3);
 for i = y_start:y_spacing:y_end
     for j = x_start:x_spacing:x_end
-        this_patch = img(floor(j-ps/2):ceil(j+ps/2), ...
-            floor(i-ps/2):ceil(i+ps/2), : );
+        this_patch = img(floor(i-ps/2):ceil(i+ps/2), ..., 
+            floor(j-ps/2):ceil(j+ps/2), :);
         patch_mean = mean(mean(this_patch,1),2);
         rgb(k,:) = patch_mean;
         k = k + 1;

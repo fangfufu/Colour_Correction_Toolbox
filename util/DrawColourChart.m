@@ -19,7 +19,7 @@ end
 %% Convert XYZ to sRGB
 % Note that we needed the whitepoint reading off the tiles
 if exist('wp', 'var')
-    rgb = xyz2rgb(triplets', 'WhitePoint', wp);
+    rgb = xyz2rgb(triplets, 'WhitePoint', wp);
     rgb(rgb < 0) = 0;
 else
     rgb = triplets;

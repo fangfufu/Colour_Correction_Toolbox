@@ -1,5 +1,15 @@
 function [ ] = DrawColourChart( triplets, ncols, nrows, wp)
 %% DrawColourChart Given XYZ values, draw a colour chart
+%   Mandatory Parameters : 
+%       triplets : The triplets that describe a colour checker - could be 
+%                   RGB or XYZ
+%       ncols : The number of columns in this colour checker
+%       nrows : The nubmer of rows in this colour checker
+%
+%   Optional Parameter :
+%       wp : The white point of the illuminant, supplying this parameter
+%               triggers the conversion from XYZ to sRGB.
+
 
 %% Sanity checks
 if size(triplets, 1) ~= ncols * nrows

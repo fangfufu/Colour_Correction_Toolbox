@@ -1,0 +1,17 @@
+Legend: 
+  * - An event occurred.
+  > - A write operation occurred.
+  < - A read operation occurred.
+ 
+1      Recording on 13-Nov-2016 at 09:08:08.885. Binary data in little endian format.
+2      > 7 ascii values.
+       CAL 0
+
+3      > 9 ascii values.
+       SET 100
+
+4      > 7 ascii values.
+       SET 0
+
+5        Recording off.
+

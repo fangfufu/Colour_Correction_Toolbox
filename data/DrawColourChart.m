@@ -21,12 +21,14 @@ end
 if exist('wp', 'var')
     rgb = xyz2rgb(triplets, 'WhitePoint', wp);
     rgb(rgb < 0) = 0;
+    rgb(rgb > 1) = 1;
 else
     rgb = triplets;
 end
 
 %% Draw the rectangles
 axis equal;
+axis off;
 k = 1;
 for j = 1:nrows
     for i = 1:ncols
@@ -35,6 +37,5 @@ for j = 1:nrows
         k = k + 1;
     end
 end
-axis off;
 
 end

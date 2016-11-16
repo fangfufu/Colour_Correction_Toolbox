@@ -126,13 +126,14 @@ for j = 1:nrows
             rectangle('Position', [i * 1, -j * 1, 1, 1], 'FaceColor', ...
                 trgb);
             if isempty(illum)
-                save(filename, 'radiance', 'xyz');
+                save(filename, 'radiance', 'xyz', 'meas_wl');
             else
                 reflectance(k, :) = this_radiance./ illum';
-                save(filename, 'radiance', 'xyz', 'reflectance');
+                save(filename, 'radiance', 'xyz', 'reflectance', ...
+                    'meas_wl');
             end
         else
-            save(filename, 'radiance');
+            save(filename, 'radiance', 'meas_wl');
         end
         k = k + 1;
     end

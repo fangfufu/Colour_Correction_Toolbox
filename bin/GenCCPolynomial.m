@@ -23,8 +23,8 @@ if ndims(rgb)
     rgb = reshape(rgb, [], 3);
 end
 
-rgb = SPolynomialMat(rgb, deg);
-ccm = rgb\xyz;
+rgb_x = SPolynomialMat(rgb, deg);
+ccm = rgb_x\xyz;
 
 end
 

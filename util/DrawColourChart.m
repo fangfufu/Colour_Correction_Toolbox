@@ -24,6 +24,8 @@ if exist('wp', 'var')
     rgb(rgb > 1) = 1;
 else
     rgb = triplets;
+    rgb = rgb -min(rgb(:));
+    rgb = rgb ./ max(rgb(:));
 end
 
 %% Draw the rectangles

@@ -12,6 +12,14 @@ if ~isvector(in_wl) || ~isvector(out_wl)
     error('data_wl and cam_wl must both be vectors');
 end
 
+if size(in_wl, 1) > size(in_wl, 2)
+    in_wl = in_wl';
+end
+
+if size(out_wl, 1) > size(out_wl, 2)
+    out_wl = out_wl';
+end
+
 n_dout = size(out_wl, 2);
 m = size(data, 2);
 data_out = zeros(n_dout, m);

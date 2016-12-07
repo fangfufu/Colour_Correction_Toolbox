@@ -2,33 +2,33 @@ function [ outImg, inPts ] = UntransformImg( inImg, varargin)
 %% UntransformImg Transform an image so the camera is above the image.
 %   Transform a colour checker image in such a way so that the camera is 90
 %   degrees above the plane being imaged. This function is designed to work
-%   with colour checker boards. 
+%   with colour checker boards.
 %
 %   Example:
-%       out_img = UntransformImg(in_img);
+%       outImg = UntransformImg(in_img);
 %       The in_img will be displayed. The user then has to select 8 corners
 %       specified by the example image.
 %
 %   Mandatory parameters:
-%       in_img : An image of the chequer board
+%       inImg : An image of the chequer board
 %
-%   Optional name-value pair parameters: 
-%       in_pts : The coordinate of the specified corners on the colour 
-%                checker.
-%       ref_img : The optional reference colour checker board images. 
-%       ref_pts : The coordinate of the corners in the reference tracker
+%   Optional name-value pair parameters:
+%       inPts : The coordinate of the corners of the colour checker.
+%       refImg : The optional reference colour checker board images.
+%       refPts : The coordinate of the corners in the reference tracker
 %       board
 %
 %   Output:
-%       out_img : The image of the colour checker board after
+%       outImg : The image of the colour checker board after
 %       transformation.
+%       inPts : The coordinate of the corners of the colour checker.
 %
 
 %% Input Parser
-p = inputParser; 
-addParameter(p, 'inPts', [], @(x) isnumeric(x) && numel(x) == 8);
-addParameter(p, 'refImg', [], @(x) isnumeric(x) && ndims(x) == 3);
-addParameter(p, 'refPts', [], @(x) isnumeric(x) && numel(x) == 8);
+p = inputParser;
+addOptional(p, 'inPts', [], @(x) isnumeric(x) && numel(x) == 8);
+addOptional(p, 'refImg', [], @(x) isnumeric(x) && ndims(x) == 3);
+addOptional(p, 'refPts', [], @(x) isnumeric(x) && numel(x) == 8);
 
 parse(p, varargin{:});
 
@@ -50,7 +50,7 @@ REF_PTS = [ ...
         ];
 REF_LEN = mean([sqrt(sum((REF_PTS(1,:) - REF_PTS(2,:)).^2)), ...
                 sqrt(sum((REF_PTS(3,:) - REF_PTS(4,:)).^2))]);
-REF_PTS = REF_PTS./REF_LEN;            
+REF_PTS = REF_PTS./REF_LEN;
 
 %% Checking what the user has supplied
 if ~isempty(ref_img)

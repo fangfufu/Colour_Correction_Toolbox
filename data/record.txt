@@ -3,7 +3,7 @@ Legend:
   > - A write operation occurred.
   < - A read operation occurred.
  
-1      Recording on 15-Nov-2016 at 00:44:16.721. Binary data in little endian format.
+1      Recording on 24-Nov-2016 at 15:35:57.434. Binary data in little endian format.
 2      > 7 ascii values.
        CAL 0
 

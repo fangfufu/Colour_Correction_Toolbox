@@ -29,4 +29,3 @@ for i = 1:Niter
    	M = (D*rgb)\xyz; % update correction matrix
     urgb = rgb*M; % update current approximation
 end
-

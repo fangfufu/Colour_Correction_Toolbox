@@ -35,7 +35,7 @@ addRequired(p, 'applyCC', @(x) isa(x, 'function_handle'));
 
 % Optional parameters
 % foldCount the number of folds in cross validation
-addOptional(p, 'foldCount', 3, @(x) numel(x) == 1 && rem(x,1) == 0);
+addOptional(p, 'foldInd', [], @(x) isvector(x) || isempty(x));
 
 % Parse the varargin
 parse(p, varargin{:});
@@ -47,7 +47,14 @@ xyz = p.Results.xyz;
 genCC = p.Results.genCC;
 applyCC = p.Results.applyCC;
 wp = p.Results.wp;
-foldCount = p.Results.foldCount;
+foldInd = p.Results.foldInd;
+
+% Calculate the number of folds
+foldCount = max(foldInd(:));
+% Handle empty foldInd
+if isempty(foldInd)
+    foldCount = 1;
+end
 
 if size(rgb, 1) ~= size(xyz,1)
     error('EvalCCRGBXYZ:input_size_mismatch', ... 
@@ -76,12 +83,13 @@ for i = 1:foldCount
     % Note that we use 't' for training, 'v' for validation.
     
     % Setting the indices
-    tInd = i:foldCount:Nrgb;
-    vInd = setdiff(1:Nrgb, tInd);
+    tInd = foldInd == i;
+    vInd = ~tInd;
     
-    % Handle foldCount == 1 (no cross-validation)
-    if isempty(vInd)
-        vInd = tInd;
+    % Handle empty foldInd
+    if isempty(foldInd)
+        vInd = true(size(rgb,1),1);
+        tInd = vInd;
     end
     
     % Extracting the training data for this fold

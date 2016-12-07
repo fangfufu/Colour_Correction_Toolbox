@@ -1,5 +1,5 @@
 function M = GenCCHomo(rgb,xyz,max_iter,tol)
-% ALSHOMOCAL computes the colour correction matrix by using
+%% ALSHOMOCAL computes the colour correction matrix by using
 % the homogrpahy based method
 %
 % rgb - RGBs (N-by-3)
@@ -18,13 +18,20 @@ if nargin<4, tol = 1e-20; end
 
 M = uea_H_from_x_als(rgb',xyz',max_iter,tol);
 
+M = M';
+
+%% Undo the scaling
+cam_xyz = rgb * M;
+sf = RobustGetScale(xyz, cam_xyz);
+M = eye(3) * sf * M;
+
 end
 
 function [H,err,pD] = uea_H_from_x_als(p1,p2,max_iter,tol)
 
 % [H,rms,pa] = uea_H_from_x_als(H0,p1,p2,max_iter,tol)
 %
-% Compute H using alternating least square
+%% Compute H using alternating least square
 
 % An initial estimate of
 % H is required, which would usually be obtained using

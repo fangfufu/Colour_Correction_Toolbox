@@ -5,9 +5,9 @@ function [ N ] = SPolynomialMat( M, deg )
 % call this function directly.
 %
 %   References:
-%   Hong, Guowei, M. Ronnier Luo, and Peter A. Rhodes. 
-%   "A study of digital camera colorimetric characterisation based on 
-%   polynomial modelling." (2001).
+%   Finlayson, Graham D., Michal Mackiewicz, and Anya Hurlbert. 
+%   "Color Correction Using Root-Polynomial Regression." 
+%   IEEE Transactions on Image Processing 24.5 (2015): 1460-1470.
 %
 %   Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
 %   University of East Anglia

@@ -1,5 +1,5 @@
 function M = GenCCALS(rgb,xyz,Niter)
-% GENCCALS computes the colour correction matrix by using
+%% GENCCALS computes the colour correction matrix by using
 % the alternating least squares method with a diagnoal
 % shading matrix
 %
@@ -29,3 +29,8 @@ for i = 1:Niter
    	M = (D*rgb)\xyz; % update correction matrix
     urgb = rgb*M; % update current approximation
 end
+
+%% Undo the scaling
+cam_xyz = rgb * M;
+sf = RobustGetScale(xyz, cam_xyz);
+M = eye(3) * sf * M;

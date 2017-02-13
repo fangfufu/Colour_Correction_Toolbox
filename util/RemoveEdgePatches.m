@@ -1,6 +1,5 @@
-function [ new_xyz ] = remove_edge_patches( old_xyz )
-%REMOVE_EDGE_PATCHES Remove the patches on the edge for a colour chart
-%measurement matrix
+function [ new_xyz ] = RemoveEdgePatches( old_xyz )
+%REMOVEEDGEPATCHES Remove the edge patches on an xyz colour chart
 
 col_max = 14;
 row_max = 10;

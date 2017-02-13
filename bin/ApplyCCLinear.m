@@ -20,7 +20,7 @@ function [ xyz ] = ApplyCCLinear( rgb, ccm )
 
 din_size = size(rgb);
 
-if ndims(rgb)
+if ndims(rgb) == 3
     rgb = reshape(rgb, [], 3);
 end
 

@@ -1,4 +1,4 @@
-function [ ccm ] = GenCCPolynomial( rgb, xyz, deg )
+function [ ccm ] = GenCCPolynomial( rgb, xyz, deg, t_factor )
 %% GenCCPolynomial Generate Polynomial Colour Correction Matrix
 %   Parameters :
 %       rgb : n-times-3 array containing colour triplets, or an 
@@ -23,8 +23,12 @@ if ndims(rgb)
     rgb = reshape(rgb, [], 3);
 end
 
+if ~exist('t_factor', 'var')
+    t_factor = 0;
+end
+
 rgb_x = SPolynomialMat(rgb, deg);
-ccm = rgb_x\xyz;
+ccm = (rgb_x' * rgb_x + t_factor * eye(size(rgb_x,2)) ) \ (rgb_x' * xyz);
 
 end
 

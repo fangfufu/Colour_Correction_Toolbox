@@ -1,4 +1,4 @@
-function [ M ] = GenCCRootPolynomial( rgb, xyz, deg )
+function [ ccm ] = GenCCRootPolynomial( rgb, xyz, deg, t_factor )
 %% GenCCRootPolynomial Generate root Polynomial Colour Correction Matrix
 %   Parameters :
 %       rgb : n-times-3 array containing colour triplets, or an 
@@ -24,7 +24,11 @@ if ndims(rgb)
     rgb = reshape(rgb, [], 3);
 end
 
+if ~exist('t_factor', 'var')
+    t_factor = 0;
+end
+
 rgb = SRootPolynomialMat(rgb, deg);
-M = rgb\xyz;
+ccm = (rgb' * rgb + t_factor * eye(size(rgb,2)) ) \ (rgb' * xyz);
 
 end

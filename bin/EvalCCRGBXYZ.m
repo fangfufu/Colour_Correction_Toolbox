@@ -101,23 +101,15 @@ for i = 1:foldCount
     
     % Generate the validation set
     vRGB = rgb(vInd, :);
-    vRGB(end+1,:) = vRGB(40,:);
     
     vTrueLab = lab(vInd, :);
     
     % Apply colour correction
     vCamXYZ = applyCC(vRGB, ccm);
-    vWp = vCamXYZ(end,:);
-    vCamXYZ = vCamXYZ(1:end-1,:);
-    
-    % normalise exposure by dividing G of white patch
-%     vCamXYZ = vCamXYZ ./ vCamXYZ(end, 2);
+    vCamXYZ = vCamXYZ(1:end,:);
 
     vCamLab = xyz2lab(vCamXYZ, 'WhitePoint', wp);
-%     vCamLab = xyz2lab(vCamXYZ, 'WhitePoint', vWp);
-%     vCamLab = HGxyz2lab(vCamXYZ, vCamXYZ(40,:));
 
-    
     vCielabE = sqrt(sum((vCamLab - vTrueLab).^2, 2));
     cielabE = [cielabE; vCielabE]; %#ok<AGROW>
     

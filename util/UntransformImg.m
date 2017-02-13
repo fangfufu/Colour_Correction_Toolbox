@@ -6,7 +6,7 @@ function [ outImg, inPts ] = UntransformImg( inImg, varargin)
 %
 %   Example:
 %       outImg = UntransformImg(in_img);
-%       The in_img will be displayed. The user then has to select 8 corners
+%       The in_img will be displayed. The user then has to select 4 corners
 %       specified by the example image.
 %
 %   Mandatory parameters:

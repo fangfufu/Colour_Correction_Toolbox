@@ -88,19 +88,9 @@ pD = D;
 
 end
 
+% improved D1 solver, needs testing.
 function D = SolveD1(p,q)
-
     [nCh,nPx] = size(p);
-
-    % constract RGB index
-    Dr = [1:nPx*nCh]'; % row index
-    Dc = repmat(1:nPx,[nCh,1]); Dc = Dc(:); % column index
-
-    A = sparse(Dr,Dc,p(:),nPx*nCh,nPx);
-    B = q(:);
-    A1 = A'*A;
-
-    % compute D
-    D = A1\(A'*B);
-    D = spdiags(D,0,nPx,nPx);
+    d = (ones(1,nCh)*(p.*q))./(ones(1,nCh)*(p.*p));
+    D = spdiags(d',0,nPx,nPx);
 end

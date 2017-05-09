@@ -13,6 +13,10 @@ function H = GenCCHomoRansac(rgb,xyz,white)
 % Please note that the results are not stable due to its randomness.
 % We thus recommend you to try it for many runs and pick the best.
 
+% Reference:
+% 'Color Homography Color Correction', Graham Finlayson, Han Gong,
+% Robert Fisher, Color and Imaging Conference (CIC), 2016 
+
 % Han Gong <gong@fedoraproject.org>
 % School of Computing Sciences
 % University of East Anglia

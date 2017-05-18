@@ -24,6 +24,7 @@ function H = GenCCHomoRansac(rgb,xyz,white)
 [H,inliers] = uea_alsransac_luv(rgb',xyz',white',0.2);
 % print in for debug
 % inliers
+H = H';
 
 end
 

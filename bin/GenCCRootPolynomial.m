@@ -10,7 +10,6 @@ function [ ccm ] = GenCCRootPolynomial( rgb, xyz, deg, t_factor )
 %   Output : 
 %       ccm : The colour correction matrix
 %
-%
 %   References:
 %   Finlayson, Graham D., Michal Mackiewicz, and Anya Hurlbert. 
 %   "Color Correction Using Root-Polynomial Regression." 
@@ -19,16 +18,24 @@ function [ ccm ] = GenCCRootPolynomial( rgb, xyz, deg, t_factor )
 %   Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
 %   University of East Anglia
 %   Licensed under the MIT License
+if exist('t_factor', 'var')
+    if ndims(rgb)
+        rgb = reshape(rgb, [], 3);
+    end
 
-if ndims(rgb)
-    rgb = reshape(rgb, [], 3);
+    if ~exist('t_factor', 'var')
+        t_factor = 0;
+    end
+
+    rgb = SRootPolynomialMat(rgb, deg);
+    ccm = (rgb' * rgb + t_factor * eye(size(rgb,2)) ) \ (rgb' * xyz);
+else
+    disp([mfilename ' ' num2str(deg)]);
+    disp('Search for Tikhonov factor...');
+    gencc = @(rgb, xyz, tFactor)GenCCRootPolynomial(rgb,xyz,deg,tFactor);
+    t_factor = CalcTFactor(rgb, xyz, gencc, @ApplyCCRootPolynomial);
+    disp(t_factor);
+    ccm = GenCCRootPolynomial( rgb, xyz, deg, t_factor);
 end
-
-if ~exist('t_factor', 'var')
-    t_factor = 0;
-end
-
-rgb = SRootPolynomialMat(rgb, deg);
-ccm = (rgb' * rgb + t_factor * eye(size(rgb,2)) ) \ (rgb' * xyz);
 
 end

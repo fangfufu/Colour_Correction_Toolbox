@@ -1,22 +1,33 @@
-function [ ccm ] = GenCCEnsemble( rgb, xyz, t_factor )
+function [ ccm ] = GenCCEnsemble(rgb, xyz)
 %% GENCCENSEMBLE Generate the struct for ensemble colour correction
-ccm.ccmALS = GenCCALS(rgb, xyz);
+
+[ ccm_1, eXyz ] = GenCCEnsemblePart1(rgb, xyz);
+
+objFunc = @(eXyz, xyz, t_factor) GenCCEnsemblePart2(eXyz, ...
+    xyz, t_factor, ccm_1);
+disp('GenCCEnsemble');
+disp('Search for Tikhonov factor...');
+t_factor = CalcTFactor(eXyz, xyz, objFunc, @ApplyCCEnsemble);
+disp(t_factor);
+ccm = GenCCEnsemblePart2(eXyz, xyz, t_factor, ccm_1);
+
+end
+
+function [ ccm, eXyz ] = GenCCEnsemblePart1(rgb, xyz)
+
 ccm.ccmHomo = GenCCHomo(rgb, xyz);
 ccm.ccmLinear = GenCCLinear(rgb, xyz);
 ccm.ccmRP =  GenCCRootPolynomial(rgb, xyz, 2);
 
-ALSXyz = ApplyCCLinear(rgb, ccm.ccmALS);
 HomoXyz = ApplyCCLinear(rgb, ccm.ccmHomo);
 LinearXyz = ApplyCCLinear(rgb, ccm.ccmLinear);
 RPXyz = ApplyCCRootPolynomial(rgb, ccm.ccmRP);
 
-eXyz = [ALSXyz, HomoXyz, LinearXyz, RPXyz];
-
-if ~exist('t_factor', 'var')
-    t_factor = 0;
-end
-
-ccm.ensemble = (eXyz' * eXyz + t_factor * eye(size(eXyz, 2)) ) \ (eXyz' * xyz);
+eXyz = [HomoXyz, LinearXyz, RPXyz];
 
 end
 
+function [ ccm ] = GenCCEnsemblePart2(eXyz, xyz, t_factor, ccm)
+ccm.ensemble = (eXyz' * eXyz + t_factor * eye(size(eXyz, 2)) ) \ ...
+    (eXyz' * xyz);
+end

@@ -18,17 +18,25 @@ function [ ccm ] = GenCCPolynomial( rgb, xyz, deg, t_factor )
 %   Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
 %   University of East Anglia
 %   Licensed under the MIT License
+if exist('t_factor', 'var')
+    if ndims(rgb)
+        rgb = reshape(rgb, [], 3);
+    end
 
-if ndims(rgb)
-    rgb = reshape(rgb, [], 3);
+    if ~exist('t_factor', 'var')
+        t_factor = 0;
+    end
+
+    rgb_x = SPolynomialMat(rgb, deg);
+    ccm = (rgb_x' * rgb_x + t_factor * eye(size(rgb_x,2)) ) \ (rgb_x' * xyz);
+else
+    disp([mfilename ' ' num2str(deg)]);
+    disp('Search for Tikhonov factor...');
+    gencc = @(rgb, xyz, tFactor)GenCCPolynomial(rgb,xyz,deg,tFactor);
+    t_factor = CalcTFactor(rgb, xyz, gencc, @ApplyCCPolynomial);
+    disp(t_factor);
+    ccm = GenCCPolynomial( rgb, xyz, deg, t_factor);
 end
-
-if ~exist('t_factor', 'var')
-    t_factor = 0;
-end
-
-rgb_x = SPolynomialMat(rgb, deg);
-ccm = (rgb_x' * rgb_x + t_factor * eye(size(rgb_x,2)) ) \ (rgb_x' * xyz);
 
 end
 

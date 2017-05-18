@@ -1,5 +1,5 @@
-function [ ind ] = GenLeaveOneOutInd(n, m)
+function [ ind ] = GenLeaveOneOutMask(n, m)
 %% Generate the indices for leave-one-out crossvalidation
 ind = ones(n, 1);
-ind(m) = 0;
+ind(m) = 2;
 end

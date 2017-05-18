@@ -13,7 +13,7 @@ function [ cielabE ] = EvalCCRGBXYZ( varargin )
 %       applyCC : The function for applying colour correction matrix
 %
 %   Optional parameters:
-%       foldCount : The number of fold required for cross-validation
+%       foldInd : The fold index for cross validation
 
 % Debug only
 debug = 1;
@@ -23,7 +23,7 @@ p = inputParser;
 
 % Required parameters
 % The matrix which contains the camera responses
-addRequired(p, 'rgb', @(x) ismatrix(x) && size(x, 2) == 3);
+addRequired(p, 'rgb', @(x) ismatrix(x) && size(x, 2));
 % The matrix which contains the corresponding tristimulus values
 addRequired(p, 'xyz', @(x) ismatrix(x) && size(x, 2) == 3);
 % The whitepoint of the illuminant
@@ -34,7 +34,7 @@ addRequired(p, 'genCC', @(x) isa(x, 'function_handle'));
 addRequired(p, 'applyCC', @(x) isa(x, 'function_handle'));
 
 % Optional parameters
-% foldCount the number of folds in cross validation
+% foldInd, the fold index for cross validation
 addOptional(p, 'foldInd', [], @(x) isvector(x) || isempty(x));
 
 % Parse the varargin
@@ -82,14 +82,14 @@ lab = xyz2lab(xyz, 'WhitePoint', wp);
 for i = 1:foldCount
     % Note that we use 't' for training, 'v' for validation.
     
-    % Setting the indices
-    tInd = foldInd == i;
-    vInd = ~tInd;
-    
-    % Handle empty foldInd
     if isempty(foldInd)
+        % Handle empty foldInd
         vInd = true(size(rgb,1),1);
         tInd = vInd;
+    else
+        % Setting the indices
+        tInd = (foldInd ~= i);
+        vInd = ~tInd;
     end
     
     % Extracting the training data for this fold

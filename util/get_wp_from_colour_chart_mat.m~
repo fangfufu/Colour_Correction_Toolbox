@@ -1,8 +1,0 @@
-function [ wp ] = get_wp_from_colour_chart_mat( mat )
-%GET_WP_FROM_COLOUR_CHART_MAT Get whitepoint from a colour chart matrix
-
-i = ; 
-wp = mat(find(mat(:,2) == max(mat(:,2))),:);
-
-end
-

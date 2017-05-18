@@ -99,7 +99,7 @@ for i = 1:nMethods
         cimgs{i} = real(cimgs{i});
         cimgs{i}(cimgs{i} < 0 | isinf(cimgs{i}) | isnan(cimgs{i})) = 0;
         cimgs{i} = xyz2rgb(real(cimgs{i}), 'WhitePoint', ...
-            get_wp_from_colour_chart_mat(xyz));
+            GetWpFromColourChecker(xyz));
         subplot(windowConfig(1), windowConfig(2), i+1);
         imshow(cimgs{i});
         if ~isempty(plotTitles)

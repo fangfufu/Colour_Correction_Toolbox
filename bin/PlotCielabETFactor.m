@@ -1,4 +1,4 @@
-function [ h, tTable ] = PlotCielabETikhonov( varargin )
+function [ h, tTable ] = PlotCielabETFactor( varargin )
 %% PLOTCIELABETFACTOR Plot how Tikhonov factor affects the CIELAB error
 %   This function draws a graph showing how the CIELAB error changes as the
 %   regularisation factor changes. This function effectively does what

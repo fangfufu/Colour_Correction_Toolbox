@@ -36,20 +36,20 @@ i = 1;
 % t(i,:) = GenerateTableRow(cielabE, 'Linear least squared');
 % i = i + 1;
 
-GenCCPoly2 = @(rgb, XYZ) GenCCPolynomial(rgb, XYZ, 2);
-[ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, wp, GenCCPoly2, @ApplyCCPolynomial, foldInd);
-t(i,:) = GenerateTableRow(cielabE, 'Second order polynomial');
-i = i + 1;
+% GenCCPoly2 = @(rgb, XYZ) GenCCPolynomial(rgb, XYZ, 2);
+% [ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, wp, GenCCPoly2, @ApplyCCPolynomial, foldInd);
+% t(i,:) = GenerateTableRow(cielabE, 'Second order polynomial');
+% i = i + 1;
 
 % GenCCPoly3 = @(rgb, XYZ) GenCCPolynomial(rgb, XYZ, 3);
 % [ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, wp, GenCCPoly3, @ApplyCCPolynomial, foldInd);
 % t(i,:) = GenerateTableRow(cielabE, 'Third order polynomial');
 % i = i + 1;
 % 
-% GenCCRP2 = @(rgb, XYZ) GenCCRootPolynomial(rgb, XYZ, 2);
-% [ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, wp, GenCCRP2, @ApplyCCRootPolynomial, foldInd);
-% t(i,:) = GenerateTableRow(cielabE, 'Second order root-polynomial');
-% i = i + 1;
+GenCCRP2 = @(rgb, XYZ) GenCCRootPolynomial(rgb, XYZ, 2);
+[ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, wp, GenCCRP2, @ApplyCCRootPolynomial, foldInd);
+t(i,:) = GenerateTableRow(cielabE, 'Second order root-polynomial');
+i = i + 1;
 % 
 % GenCCRP3 = @(rgb, XYZ) GenCCRootPolynomial(rgb, XYZ, 3);
 % [ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, wp, GenCCRP3, @ApplyCCRootPolynomial, foldInd);

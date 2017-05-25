@@ -10,4 +10,5 @@ for i = 1:nPatch
         EvalCCRGBXYZ(rgb, xyz, wp, thisGenCC, applyCC, ind)]; %#ok<AGROW>
 end
 meanCielabE = mean(cielabMat);
+% disp(['t: ', num2str(tFactor), 'e: ', num2str(meanCielabE)]);
 end

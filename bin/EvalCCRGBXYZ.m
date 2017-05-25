@@ -1,7 +1,6 @@
 function [ cielabE ] = EvalCCRGBXYZ( varargin )
 %EVALCCFUNC Evaluate a colour correction function given RGB and XYZ
 %   [ cielabE ] = EvalCCRGBXYZ(rgb, xyz, wp, genCC, applyCC);
-%   [ cielabE ] = EvalCCRGBXYZ(rgb, xyz, wp, genCC, applyCC, foldCount);
 %
 %   Required parameters:
 %       rgb : A n-times-3 matrix containing RGB response of the cameras, 
@@ -88,7 +87,7 @@ for i = 1:foldCount
         tInd = vInd;
     else
         % Setting the indices
-        tInd = (foldInd ~= i);
+        tInd = (foldInd == i);
         vInd = ~tInd;
     end
     

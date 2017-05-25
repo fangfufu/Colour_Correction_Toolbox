@@ -67,7 +67,7 @@ initT = p.Results.initT;
 debug = 0;
 
 % plot the process?
-eplot = 0;
+eplot = 1;
 xvals = [];
 yvals = [];
 
@@ -105,7 +105,6 @@ while prevErr > currErr
     tFactor = tFactor / 10;
     prevErr = currErr;
     currErr = objFunc(tFactor);
-    
     % eplots entry
     if eplot
         xvals = [xvals tFactor];

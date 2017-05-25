@@ -44,11 +44,11 @@ addOptional(p, 'wp', [], @(x) isvector(x) && numel(x) == 3);
 
 %%% Optional name-value pair parameters
 % The starting point of the graph
-addParameter(p, 'tStart', 0.1, @(x) isnumeric(x));
+addParameter(p, 'tStart', 1, @(x) isnumeric(x));
 % The stopping point of the graph
-addParameter(p, 'tEnd', 1e-20, @(x) isnumeric(x));
+addParameter(p, 'tEnd', 1e-5, @(x) isnumeric(x));
 % The interval of between two sampling points.
-addParameter(p, 'tInt', 0.9, @(x) isnumeric(x));
+addParameter(p, 'tInt', 0.5, @(x) isnumeric(x));
 
 % Parse the varargin
 parse(p, varargin{:});
@@ -87,7 +87,7 @@ tTableSize = ceil(log(tEnd / tStart)/log(tInt));
 tTable = zeros(tTableSize, 2);
 i = 1;
 while tFactor > tEnd
-    disp(i/tTableSize * 100);
+%     disp(i/tTableSize * 100);
     tTable(i, 1) = tFactor;
     tTable(i, 2) = objFunc(tFactor);
     tFactor = tFactor * tInt;

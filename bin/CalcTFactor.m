@@ -67,7 +67,7 @@ initT = p.Results.initT;
 debug = 0;
 
 % plot the process?
-eplot = 1;
+eplot = 0;
 xvals = [];
 yvals = [];
 

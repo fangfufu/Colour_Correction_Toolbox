@@ -87,9 +87,12 @@ for i = 1:foldCount
         tInd = vInd;
     else
         % Setting the indices
-        tInd = (foldInd == i);
-        vInd = ~tInd;
+        % Verfication set is fold i.
+        vInd = (foldInd == i);
+        % Training set are the folds that are not fold i.
+        tInd = ~vInd;
     end
+    disp(['tInd:' num2str(sum(tInd)) ' vInd: ' num2str(sum(vInd))]);
     
     % Extracting the training data for this fold
     tRGB = rgb(tInd, :);

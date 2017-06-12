@@ -9,9 +9,11 @@ partitions=4;
 %% Set up training / verification folds
 training_mask = rand(96,1) > 0.1;
 verification_mask = ~training_mask;
+XYZwpt = XYZ(w_idx,:);
+RGBwpt = RGB(w_idx,:);
 
- training_mask = true(96,1);
- verification_mask = training_mask;
+ %training_mask = true(96,1);
+ %verification_mask = training_mask;
 
 t_id = find(training_mask);
 v_id = find(verification_mask);
@@ -22,11 +24,15 @@ disp(['Size of t_id: ', num2str(size(t_id,1)), ...
 RGBt = RGB(t_id, :);
 XYZt = XYZ(t_id, :);
 
+%% Tag the white point on the end of training set. 
+RGBt(end+1,:) = RGBwpt; 
+XYZt(end+1,:) = XYZwpt;
+
 RGBv = RGB(v_id, :);
 XYZv = XYZ(v_id, :);
 
 %% Generate Colour Correction Matrix
-[mat,~,~,boundaryH] = colour_correction_NHPPCC(RGBt,XYZt,w_idx,partitions,WPP_flag,sep_deg,reqNoPatches);
+[mat,~,~,boundaryH] = colour_correction_NHPPCC(RGBt,XYZt,size(RGBt,1),partitions,WPP_flag,sep_deg,reqNoPatches);
 
 %% calculate XYZs from RGBs and their hue region indices
 RGBvwb = RGBv./repmat(RGB(w_idx,:),size(RGBv,1),1); %Regularise RGB readings
@@ -35,17 +41,17 @@ indv = HA2Partition(HAv,boundaryH); % Indices for the verification set
 [XYZe] = conversionCameraHPPCC(mat,indv,RGBvwb); %estimated XYZ
 
 %% and lab error
-Lab_ref=xyz2lab(XYZ,'Whitepoint', XYZ(w_idx,:));
+Lab_ref=xyz2lab(XYZ,'Whitepoint', XYZwpt);
 Lab_ref = Lab_ref(v_id, :);
-Lab=xyz2lab(XYZe,'Whitepoint', XYZ(w_idx,:));
+Lab=xyz2lab(XYZe,'Whitepoint', XYZwpt);
 error = mean(sqrt(sum((Lab-Lab_ref).^2,2)));
 disp(['CIELAB Error:' num2str(error)]);
 
 %% Draw the training set and verification set
 nrows = 10;
 ncols = 10;
-XYZ_RGBt = xyz2rgb(XYZt, 'WhitePoint', XYZ(w_idx,:));
-XYZ_RGBv = xyz2rgb(XYZv, 'WhitePoint', XYZ(w_idx,:));
+XYZ_RGBt = xyz2rgb(XYZt, 'WhitePoint', XYZwpt);
+XYZ_RGBv = xyz2rgb(XYZv, 'WhitePoint', XYZwpt);
 XYZ_RGBt(isnan(XYZ_RGBt)) = 0;
 XYZ_RGBv(isnan(XYZ_RGBv)) = 0;
 XYZ_RGBt(XYZ_RGBt > 1) = 1;

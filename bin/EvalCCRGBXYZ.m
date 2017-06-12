@@ -14,9 +14,6 @@ function [ cielabE ] = EvalCCRGBXYZ( varargin )
 %   Optional parameters:
 %       foldInd : The fold index for cross validation
 
-% Debug only
-debug = 1;
-
 %% Set up the input parser
 p = inputParser;
 
@@ -67,9 +64,6 @@ end
 % CIELAB error matrix
 cielabE = [];
 
-% The number of colour signals we actually have
-Nrgb = size(rgb, 1);
-
 % The true CIELAB 
 lab = xyz2lab(xyz, 'WhitePoint', wp);
 % lab = HGxyz2lab(xyz, wp);
@@ -92,7 +86,7 @@ for i = 1:foldCount
         % Training set are the folds that are not fold i.
         tInd = ~vInd;
     end
-    disp(['tInd:' num2str(sum(tInd)) ' vInd: ' num2str(sum(vInd))]);
+%     disp(['tInd:' num2str(sum(tInd)) ' vInd: ' num2str(sum(vInd))]);
     
     % Extracting the training data for this fold
     tRGB = rgb(tInd, :);
@@ -115,13 +109,6 @@ for i = 1:foldCount
     vCielabE = sqrt(sum((vCamLab - vTrueLab).^2, 2));
     cielabE = [cielabE; vCielabE]; %#ok<AGROW>
     
-%     if debug
-%         figure;
-%         txy = tXYZ./repmat(sum(tXYZ, 2),1,3);
-%         plot(txy(:,1), txy(:,2));
-%         title(['xy chromaticity for fold ' num2str(i)]);
-%         xlabel(
-%     end
 end
 
 end

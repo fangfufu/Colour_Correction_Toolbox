@@ -13,11 +13,13 @@ if ndims(rgb)
     rgb = reshape(rgb, [], 3);
 end
 
-rgb = rgb ./ repmat(ccm.wp, size(rgb, 1), 1);
+%% Normalise RGB input
+rgb = rgb ./ repmat(ccm.WP, size(rgb, 1), 1);
 
 %% Apply colour correction algorithm
-[xyz] = conversionCameraHPPCC(ccm.mat, ccm.ind, rgb);
-
+HA = RGB2HueAngleWithoutNorm(rgb);
+ind = HA2Partition(HA, ccm.BH);
+[xyz] = conversionCameraHPPCC(ccm.MAT, ind, rgb);
 
 %% Reshape output
 xyz = reshape(xyz, din_size);

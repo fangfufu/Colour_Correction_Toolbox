@@ -1,6 +1,16 @@
 function [ ccm ] = GenCCHPP( rgb, xyz )
 %% GENCCHPP Wrapper function for Hue Plane Preserving Colour Correction
-%   Detailed explanation goes here
+%   Note: that we are assuming the input training data contains a white
+%   patch. 
+%
+%   INPUT:
+%       rgb : A nx3 matrix containing the RGB values from a colour checker.
+%           *** NOTE that we expect the colour checker to contain a ***
+%           *** white patch, which is detected using                ***
+%           *** GetWpFromColourChecker().                           ***
+%       xyz : A nx3 matrix containing the XYZ values corresponding to the
+%           RGB 
+%       
 
 %% Load settings
 load('/home/fangfufu/UEA/Colour_Correction_Toolbox/bin/nhppcc-toolbox/settings.mat', ...
@@ -12,11 +22,11 @@ if ndims(rgb)
 end
 
 %% Generate colour correction matrix
-[ccm.wp, w_idx] = GetWpFromColourChecker(rgb);
-[mat, ~, ind] = colour_correction_NHPPCC(rgb, xyz, w_idx, partitions, WPP_flag, ...
+[ccm.WP, w_idx] = GetWpFromColourChecker(rgb);
+[mat, ~, ~, BH] = colour_correction_NHPPCC(rgb, xyz, w_idx, partitions, WPP_flag, ...
     sep_deg, reqNoPatches);
-ccm.mat = mat;
-ccm.ind = ind;
+ccm.MAT = mat;
+ccm.BH = BH;
 
 end
 

@@ -42,8 +42,12 @@ rgb = p.Results.rgb;
 xyz = p.Results.xyz;
 genCC = p.Results.genCC;
 applyCC = p.Results.applyCC;
-wp = p.Results.wp;
 foldInd = p.Results.foldInd;
+
+% Assign white point
+wpXYZ = GetWpFromColourChecker(xyz);
+wpRGB = GetWpFromColourChecker(rgb);
+
 
 % Calculate the number of folds
 foldCount = max(foldInd(:));
@@ -65,8 +69,7 @@ end
 cielabE = [];
 
 % The true CIELAB 
-lab = xyz2lab(xyz, 'WhitePoint', wp);
-% lab = HGxyz2lab(xyz, wp);
+lab = xyz2lab(xyz, 'WhitePoint', wpXYZ);
 
 
 
@@ -92,6 +95,10 @@ for i = 1:foldCount
     tRGB = rgb(tInd, :);
     tXYZ = xyz(tInd, :);
     
+    % Tag on the white point at the end of the training set
+    tRGB(end, :) = wpRGB;
+    tXYZ(end, :) = wpXYZ;
+    
     % Training the colour correction matrix
     ccm = genCC(tRGB, tXYZ);
     
@@ -104,7 +111,7 @@ for i = 1:foldCount
     vCamXYZ = applyCC(vRGB, ccm);
     vCamXYZ = vCamXYZ(1:end,:);
 
-    vCamLab = xyz2lab(vCamXYZ, 'WhitePoint', wp);
+    vCamLab = xyz2lab(vCamXYZ, 'WhitePoint', wpXYZ);
 
     vCielabE = sqrt(sum((vCamLab - vTrueLab).^2, 2));
     cielabE = [cielabE; vCielabE]; %#ok<AGROW>

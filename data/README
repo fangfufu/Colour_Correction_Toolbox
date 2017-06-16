@@ -1,0 +1,4 @@
+This folder contains the following folders and files:
+- raw: unprocessed raw data file (not checked into the repository)
+- cssf: camera spectral sensitivity function
+- rgbxyz: the rgb and xyz files

@@ -1,4 +1,4 @@
-function [ cie ] = EvalCCRGBXYZMI( varargin )
+function [ cielabE ] = EvalCCRGBXYZMI( varargin )
 %% EVALCCRGBXYZMI Evaluate a maximum ignorance colour correction function
 %   [ cielabE ] = EvalCCRGBXYZMI( rgb, xyz, cssf, cmf, genCC, applyCC)
 %
@@ -45,8 +45,8 @@ parse(p, varargin{:});
 
 %% Initial variable assignment
 % Assign the output of the input parser
-rgb = p.Results.rgb;
-xyz = p.Results.xyz;
+RGB = p.Results.rgb;
+XYZ = p.Results.xyz;
 cssf = p.Results.cssf;
 cmf = p.Results.cmf;
 genCC = p.Results.genCC;
@@ -67,6 +67,24 @@ if ~isequal(size(cmf), size(cssf))
         'function and colour matching function, please supply both', ...
         'cssfWl and cmfWl']);
 end
+%% The main part
+
+% Get the whitepoints
+wpXYZ = GetWpFromColourChecker(XYZ);
+wpRGB = GetWpFromColourChecker(RGB);
+
+% The true CIELAB values
+LAB = xyz2lab(XYZ, 'WhitePoint', wpXYZ);
+
+% Compute colour correction matrix
+ccm = genCC(cssf, cmf);
+
+% e for estimated
+eXYZ = applyCC(RGB, ccm); 
+eLAB = xyz2lab(eXYZ, 'WhitePoint', wpXYZ);
+
+% Calculate the CIELAB error
+cielabE = sqrt(sum((LAB - eLAB).^2,2));
 
 end
 

@@ -35,15 +35,15 @@ parse(p, varargin{:});
 
 %% Initial variable assignment
 % Assign the things came out from the input parser (saves me from typing)
-rgb = p.Results.rgb;
-xyz = p.Results.xyz;
+RGB = p.Results.rgb;
+XYZ = p.Results.xyz;
 genCC = p.Results.genCC;
 applyCC = p.Results.applyCC;
 foldInd = p.Results.foldInd;
 
 % Assign white point
-wpXYZ = GetWpFromColourChecker(xyz);
-wpRGB = GetWpFromColourChecker(rgb);
+wpXYZ = GetWpFromColourChecker(XYZ);
+wpRGB = GetWpFromColourChecker(RGB);
 
 
 % Calculate the number of folds
@@ -53,7 +53,7 @@ if isempty(foldInd)
     foldCount = 1;
 end
 
-if size(rgb, 1) ~= size(xyz,1)
+if size(RGB, 1) ~= size(XYZ,1)
     error('EvalCCRGBXYZ:input_size_mismatch', ... 
         'RGB matrix and XYZ matrix differ in size');
 end
@@ -66,7 +66,7 @@ end
 cielabE = [];
 
 % The true CIELAB 
-lab = xyz2lab(xyz, 'WhitePoint', wpXYZ);
+LAB = xyz2lab(XYZ, 'WhitePoint', wpXYZ);
 
 
 
@@ -77,7 +77,7 @@ for i = 1:foldCount
     
     if isempty(foldInd)
         % Handle empty foldInd
-        vInd = true(size(rgb,1),1);
+        vInd = true(size(RGB,1),1);
         tInd = vInd;
     else
         % Setting the indices
@@ -89,8 +89,8 @@ for i = 1:foldCount
 %     disp(['tInd:' num2str(sum(tInd)) ' vInd: ' num2str(sum(vInd))]);
     
     % Extracting the training data for this fold
-    tRGB = rgb(tInd, :);
-    tXYZ = xyz(tInd, :);
+    tRGB = RGB(tInd, :);
+    tXYZ = XYZ(tInd, :);
     
     % Tag on the white point at the end of the training set
     tRGB(end, :) = wpRGB;
@@ -100,9 +100,9 @@ for i = 1:foldCount
     ccm = genCC(tRGB, tXYZ);
     
     % Generate the validation set
-    vRGB = rgb(vInd, :);
+    vRGB = RGB(vInd, :);
     
-    vTrueLab = lab(vInd, :);
+    vTrueLab = LAB(vInd, :);
     
     % Apply colour correction
     vCamXYZ = applyCC(vRGB, ccm);

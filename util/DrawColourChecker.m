@@ -1,4 +1,4 @@
-function [ ] = DrawColourChecker( triplets, ncols, nrows, wp)
+function [ ] = DrawColourChecker( in_mat, ncol, nrow, wp)
 %% DrawColourChart Given XYZ values, draw a colour chart
 %   Mandatory Parameters : 
 %       triplets : The triplets that describe a colour checker - could be 
@@ -12,28 +12,29 @@ function [ ] = DrawColourChecker( triplets, ncols, nrows, wp)
 
 
 %% Sanity checks
-if size(triplets, 1) ~= ncols * nrows
+if size(in_mat, 1) ~= ncol * nrow
     error('Invalid matrix dimension.');
 end
 
+%% Transpose colour checker 
+% My own data set tends to be row-wise first, then column-wise. Whereas
+% everyone else's data seems to be column-wise first, then row-wise. 
+in_mat = TransposeColourChecker(in_mat, ncol, nrow);
+
 %% Convert XYZ to sRGB
 % Note that we needed the whitepoint reading off the tiles
-if exist('wp', 'var')
-    rgb = xyz2rgb(triplets, 'WhitePoint', wp);
-    rgb(rgb < 0) = 0;
-    rgb(rgb > 1) = 1;
-else
-    rgb = triplets;
-    rgb = rgb -min(rgb(:));
-    rgb = rgb ./ max(rgb(:));
-end
+wp = GetWpFromColourChecker(in_mat);
+rgb = xyz2rgb(in_mat, 'WhitePoint', wp);
+rgb(rgb < 0) = 0;
+rgb(rgb > 1) = 1;
+
 
 %% Draw the rectangles
 axis equal;
 axis off;
 k = 1;
-for j = 1:nrows
-    for i = 1:ncols
+for j = 1:nrow
+    for i = 1:ncol
         rectangle('Position', [i * 10, -j * 10, 10, 10], 'FaceColor', ...
             rgb(k,:));
         k = k + 1;

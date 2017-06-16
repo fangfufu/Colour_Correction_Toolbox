@@ -19,7 +19,6 @@ function [ t ] = EvaluateAll()
 % RGB = new_castle_xyz_transposed;
 % XYZ = new_castle_rgb_transposed;
 load('/home/fangfufu/UEA/Colour_Correction_Toolbox/bin/nhppcc-toolbox/anonymousTestData.mat')
-wp = GetWpFromColourChecker(XYZ);
 
 %% Run the evaluation functions
 

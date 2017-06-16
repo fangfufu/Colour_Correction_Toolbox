@@ -23,15 +23,9 @@ end
 
 %% Generate colour correction matrix
 [ccm.WP, w_idx] = GetWpFromColourChecker(rgb);
-
-% Make sure that our white patch is unique.
-w_idx = w_idx(end);
-ccm.WP = ccm.WP(end,:);
-
 [mat, ~, ~, BH] = colour_correction_NHPPCC(rgb, xyz, w_idx, partitions, ...
     WPP_flag, sep_deg, reqNoPatches);
 ccm.MAT = mat;
 ccm.BH = BH;
 
 end
-

@@ -6,6 +6,8 @@ function [ wp, ind ] = GetWpFromColourChecker( mat )
 % Therefore we are getting the brightest colour patch using using the 
 % second channel.
 ind = find(mat(:,2) == max(mat(:,2)));
+% Make sure that we only output a unique whitepoint
+ind = ind(1);
 wp = mat(ind,:);
 end
 

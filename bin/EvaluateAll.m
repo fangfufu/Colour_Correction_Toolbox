@@ -23,7 +23,7 @@ load('/home/fangfufu/UEA/Colour_Correction_Toolbox/bin/nhppcc-toolbox/anonymousT
 %% Run the evaluation functions
 
 % Cross-validation setting
-foldInd = crossvalind('KFold',size(XYZ,1), 3); %#ok<NODEF>
+foldInd = crossvalind('KFold',size(XYZ,1), 3); 
 % foldInd = [1:size(XYZ,1)]';
 % foldInd = GenSquentialFoldInd(size(XYZ,1),3 ); %#ok<NODEF>
 % foldInd = [];

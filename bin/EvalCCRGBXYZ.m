@@ -43,9 +43,7 @@ foldInd = p.Results.foldInd;
 
 % Assign white point
 wpXYZ = GetWpFromColourChecker(xyz);
-wpXYZ = wpXYZ(1,:);
 wpRGB = GetWpFromColourChecker(rgb);
-wpRGB = wpRGB(1,:);
 
 
 % Calculate the number of folds

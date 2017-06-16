@@ -18,9 +18,6 @@ function [ tFactor ] = CalcTFactor( varargin )
 %       applyCC : the function handle for applying the colour correction
 %           matrix
 %
-%   Optional Positional Parameters: 
-%       wp : The whitepoint of the illuminant
-%
 %   Optional name-value pair parameters
 %       lim : The stopping limit for the binary search
 %       initT : The initial Tikhonov factor to try
@@ -40,11 +37,6 @@ addRequired(p, 'genCC', @(x) isa(x, 'function_handle'));
 % applyCC, the function for applying the colour correction matrix
 addRequired(p, 'applyCC', @(x) isa(x, 'function_handle'));
 
-%%% Optional parameters
-% The whitepoint of the illuminant
-addOptional(p, 'wp', [], @(x) isvector(x) && numel(x) == 3);
-% The stopping limit of the binary search
-
 %%% Optional name-value pair parameters
 % The stopping limit for the search.
 addParameter(p, 'lim', 0.000001, @(x) isnumeric(x));
@@ -59,7 +51,6 @@ rgb = p.Results.rgb;
 xyz = p.Results.xyz;
 genCC = p.Results.genCC;
 applyCC = p.Results.applyCC;
-wp = p.Results.wp;
 lim = p.Results.lim;
 initT = p.Results.initT;
 
@@ -77,14 +68,9 @@ if size(rgb, 1) ~= size(xyz,1)
         'RGB matrix and XYZ matrix differ in size');
 end
 
-% If white point is not specified, we get it from the xyz matrix. 
-if isempty(wp)
-    wp = GetWpFromColourChecker(xyz);
-end
-
 %% Compute the smallest tFactor
 % The objective function for optimisation
-objFunc = @(t) CalcMeanCielabE(rgb, xyz, wp, genCC, applyCC, t);
+objFunc = @(t) CalcMeanCielabE(rgb, xyz, genCC, applyCC, t);
 
 % Intial tFactor
 tFactor = initT;

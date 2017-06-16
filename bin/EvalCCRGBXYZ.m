@@ -1,13 +1,12 @@
 function [ cielabE ] = EvalCCRGBXYZ( varargin )
-%EVALCCFUNC Evaluate a colour correction function given RGB and XYZ
-%   [ cielabE ] = EvalCCRGBXYZ(rgb, xyz, wp, genCC, applyCC);
+%% EVALCCFUNC Evaluate a colour correction function given RGB and XYZ
+%   [ cielabE ] = EvalCCRGBXYZ(rgb, xyz, genCC, applyCC);
 %
 %   Required parameters:
 %       rgb : A n-times-3 matrix containing RGB response of the cameras, 
 %           n being the
 %       xyz : A n-times-3 matrix containing the  corresponding tristimulus
 %           values. 
-%       wp : The white point for the illuminant
 %       genCC : The function for generation colour correction matrix
 %       applyCC : The function for applying colour correction matrix
 %
@@ -22,8 +21,6 @@ p = inputParser;
 addRequired(p, 'rgb', @(x) ismatrix(x) && size(x, 2));
 % The matrix which contains the corresponding tristimulus values
 addRequired(p, 'xyz', @(x) ismatrix(x) && size(x, 2) == 3);
-% The whitepoint of the illuminant
-addRequired(p, 'wp', @(x) isvector(x) && numel(x) == 3);
 % genCC, the function for generation the colour correction matrix
 addRequired(p, 'genCC', @(x) isa(x, 'function_handle'));
 % applyCC, the function for applying the colour correction matrix
@@ -46,7 +43,9 @@ foldInd = p.Results.foldInd;
 
 % Assign white point
 wpXYZ = GetWpFromColourChecker(xyz);
+wpXYZ = wpXYZ(1,:);
 wpRGB = GetWpFromColourChecker(rgb);
+wpRGB = wpRGB(1,:);
 
 
 % Calculate the number of folds

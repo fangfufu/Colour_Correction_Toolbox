@@ -33,21 +33,17 @@ if ndims(rgb)
     rgb = reshape(rgb, [], 3);
 end
 
-if size(ccm, 2) == 3
-    switch size(ccm, 1)
-        case 3
-            deg = 1;
-        case 9
-            deg = 2;
-        case 19
-            deg = 3;
-        case 34
-            deg = 4;
-        otherwise
-            error(e_invalid_ccm_size);
-    end
-else
-    error(e_invalid_ccm_size);
+switch size(ccm, 1)
+    case 3
+        deg = 1;
+    case 9
+        deg = 2;
+    case 19
+        deg = 3;
+    case 34
+        deg = 4;
+    otherwise
+        error(e_invalid_ccm_size);
 end
 
 rgb_x = SPolynomialMat(rgb, deg);

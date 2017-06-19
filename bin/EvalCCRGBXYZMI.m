@@ -56,7 +56,11 @@ cmfWl = p.Results.cmfWl;
 
 % Re-interpolate colour matching function
 if ~isempty(cssfWl) && ~isemtpy(cmfWl)
-    cmf = InterpData(cmf, cmfWl, cssfWl);
+    if size(cmf,1) > size(cssf,1)
+        cmf = InterpData(cmf, cmfWl, cssfWl);
+    else
+        cssf = InterpData(cssf, cssfWl, cmfWl);
+    end
 end
 
 % Additional sanity check
@@ -79,7 +83,7 @@ LAB = xyz2lab(XYZ, 'WhitePoint', wpXYZ);
 % Compute colour correction matrix
 ccm = genCC(cssf, cmf);
 
-% e for estimated
+% Compute the estimated XYZ and CIELAB values (e for estimated)
 eXYZ = applyCC(RGB, ccm); 
 eLAB = xyz2lab(eXYZ, 'WhitePoint', wpXYZ);
 

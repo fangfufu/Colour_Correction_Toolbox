@@ -54,7 +54,7 @@ applyCC = p.Results.applyCC;
 cssfWl = p.Results.cssfWl;
 cmfWl = p.Results.cmfWl;
 
-% Re-interpolate colour matching function
+% Re-interpolate cmf or cssf
 if ~isempty(cssfWl) && ~isemtpy(cmfWl)
     if size(cmf,1) > size(cssf,1)
         cmf = InterpData(cmf, cmfWl, cssfWl);

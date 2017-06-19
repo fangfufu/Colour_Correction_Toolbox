@@ -45,9 +45,9 @@ addOptional(p, 'foldCount', 3, @(x) numel(x) == 1 && rem(x,1) == 0);
 
 % Name-value parameters
 % The sampling wavelength for the camera spectral sensitivity function
-addParameter(p, 'cssfWl', [], @(x) ismatrix(x) && size(x,2) == 3);
+addParameter(p, 'cssfWl', [], @(x) isvector(x));
 % The sampling wavelength for the colour matching function
-addParameter(p, 'cmfWl', [], @(x) ismatrix(x) && size(x,2) == 3);
+addParameter(p, 'cmfWl', [], @(x) isvector(x));
 
 % Parse the varargin
 parse(p, varargin{:});

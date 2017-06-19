@@ -36,9 +36,9 @@ addRequired(p, 'applyCC', @(x) isa(x, 'function_handle'));
 
 % Name-value parameters
 % The sampling wavelength for the camera spectral sensitivity function
-addParameter(p, 'cssfWl', [], @(x) ismatrix(x) && size(x,2) == 3);
+addParameter(p, 'cssfWl', [], @(x) isvector(x));
 % The sampling wavelength for the colour matching function
-addParameter(p, 'cmfWl', [], @(x) ismatrix(x) && size(x,2) == 3);
+addParameter(p, 'cmfWl', [], @(x) isvector(x));
 
 % Parse the varargin
 parse(p, varargin{:});
@@ -55,7 +55,7 @@ cssfWl = p.Results.cssfWl;
 cmfWl = p.Results.cmfWl;
 
 % Re-interpolate cmf or cssf
-if ~isempty(cssfWl) && ~isemtpy(cmfWl)
+if ~isempty(cssfWl) && ~isempty(cmfWl)
     if size(cmf,1) > size(cssf,1)
         cmf = InterpData(cmf, cmfWl, cssfWl);
     else
@@ -68,7 +68,7 @@ end
 if ~isequal(size(cmf), size(cssf))
     error('EvalCCCSSFCMF:cssf_cmf_dimensional_mismatch', ...
         ['Dimensional mismatch between camera spectral sensitiviy', ...
-        'function and colour matching function, please supply both', ...
+        'function and colour matching function, please supply both ', ...
         'cssfWl and cmfWl']);
 end
 %% The main part
@@ -89,6 +89,7 @@ eLAB = xyz2lab(eXYZ, 'WhitePoint', wpXYZ);
 
 % Calculate the CIELAB error
 cielabE = sqrt(sum((LAB - eLAB).^2,2));
+disp(mean(cielabE));
 
 end
 

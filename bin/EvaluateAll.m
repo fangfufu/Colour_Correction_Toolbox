@@ -18,7 +18,11 @@ function [ t ] = EvaluateAll()
 % 
 % RGB = new_castle_xyz_transposed;
 % XYZ = new_castle_rgb_transposed;
-load('/home/fangfufu/UEA/Colour_Correction_Toolbox/bin/nhppcc-toolbox/anonymousTestData.mat')
+load('HanGong_2015_Outdoor_Cloudy_RGB.mat')
+load('HanGong_2015_Outdoor_Cloudy_XYZ.mat')
+load('CIE1931-JuddVos-2-deg.mat')
+load('Nikon_CSSF.mat')
+
 
 %% Run the evaluation functions
 

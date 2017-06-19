@@ -74,8 +74,8 @@ end
 %% The main part
 
 % Get the whitepoints
-wpXYZ = GetWpFromColourChecker(XYZ);
-wpRGB = GetWpFromColourChecker(RGB);
+[wpXYZ, wpXYZind] = GetWpFromColourChecker(XYZ);
+% wpRGB = GetWpFromColourChecker(RGB);
 
 % The true CIELAB values
 LAB = xyz2lab(XYZ, 'WhitePoint', wpXYZ);
@@ -85,11 +85,11 @@ ccm = genCC(cssf, cmf);
 
 % Compute the estimated XYZ and CIELAB values (e for estimated)
 eXYZ = applyCC(RGB, ccm); 
-eLAB = xyz2lab(eXYZ, 'WhitePoint', wpXYZ);
+eLAB = xyz2lab(eXYZ, 'WhitePoint', eXYZ(wpXYZind,:));
 
 % Calculate the CIELAB error
 cielabE = sqrt(sum((LAB - eLAB).^2,2));
 disp(mean(cielabE));
-
+disp('');
 end
 

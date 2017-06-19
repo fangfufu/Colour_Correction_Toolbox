@@ -12,6 +12,9 @@ switch method
         %% Scale by the maximum value
         i = find(A == max(A(:)));
         S = max(B(i)) / max(A(i));
+    case 3
+        %% Scale by the mean value
+        S = mean(B(:)) / mean(A(:));
 end
 
 end

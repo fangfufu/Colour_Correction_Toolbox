@@ -8,7 +8,7 @@ if size(rgb, 2) > 3
 else 
     % This branch is used during normal operation
     HomoXyz = ApplyCCLinear(rgb, ccm.ccmHomo);
-    HPPXyz = ApplyCCHPP(rgb, ccm.ccmLinear);
+    HPPXyz = ApplyCCHPP(rgb, ccm.ccmHPP);
     RPXyz = ApplyCCRootPolynomial(rgb, ccm.ccmRP);
     
     ensembleXyz = [HomoXyz, HPPXyz, RPXyz];

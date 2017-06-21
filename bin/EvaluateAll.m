@@ -3,8 +3,11 @@ function [ t ] = EvaluateAll()
 
 %% Load data
 
-load('HanGong_2015_Outdoor_Cloudy_RGB.mat');
-load('HanGong_2015_Outdoor_Cloudy_XYZ.mat')
+% load('HanGong_2015_Outdoor_Cloudy_RGB.mat');
+% load('HanGong_2015_Outdoor_Cloudy_XYZ.mat');
+load('Michal_New_Castle_Nikon_RGB.mat');
+load('Michal_New_Castle_Nikon_XYZ.mat')
+
 load('CIE1931-JuddVos-2-deg.mat');
 load('Nikon_CSSF.mat');
 

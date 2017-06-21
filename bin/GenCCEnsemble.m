@@ -16,14 +16,14 @@ end
 function [ ccm, eXyz ] = GenCCEnsemblePart1(rgb, xyz)
 
 ccm.ccmHomo = GenCCHomo(rgb, xyz);
-ccm.ccmLinear = GenCCLinear(rgb, xyz);
+ccm.ccmHPP = GenCCHPP(rgb, xyz);
 ccm.ccmRP =  GenCCRootPolynomial(rgb, xyz, 2);
 
 HomoXyz = ApplyCCLinear(rgb, ccm.ccmHomo);
-LinearXyz = ApplyCCLinear(rgb, ccm.ccmLinear);
+HPPXyz = ApplyCCHPP(rgb, ccm.ccmHPP);
 RPXyz = ApplyCCRootPolynomial(rgb, ccm.ccmRP);
 
-eXyz = [HomoXyz, LinearXyz, RPXyz];
+eXyz = [HomoXyz, HPPXyz, RPXyz];
 
 end
 

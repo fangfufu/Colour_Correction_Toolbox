@@ -20,6 +20,11 @@ M = fminsearch(@(x) AM(rgb,xyz,x),M0,opt);
 %M = fminsearch(@(x) LSM(rgb,xyz,x),M0,opt);
 M = M/sum(M(:))*3; % rescale the matrix
 
+%% Resolve scaling ambiguity
+M = ResolveScalingAmbiguity(M, rgb, xyz);
+
+end
+
 function err = AM(RGB,XYZ,M)
 % FUNTANDBASTANI computes the angular error
 %
@@ -40,6 +45,4 @@ function err = AM(RGB,XYZ,M)
     end
 
     err = sum(acos(FB));
-end
-
 end

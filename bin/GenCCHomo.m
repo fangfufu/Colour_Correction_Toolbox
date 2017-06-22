@@ -20,10 +20,8 @@ M = uea_H_from_x_als(rgb',xyz',max_iter,tol);
 
 M = M';
 
-%% Undo the scaling
-cam_xyz = rgb * M;
-sf = RobustGetScale(xyz, cam_xyz);
-M = eye(3) * sf * M;
+%% Resolve scaling ambiguity
+M = ResolveScalingAmbiguity(M, rgb, xyz);
 
 end
 

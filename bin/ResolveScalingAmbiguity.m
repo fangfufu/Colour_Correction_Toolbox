@@ -1,3 +1,10 @@
+function [ M ] = ResolveScalingAmbiguity(M, rgb, xyz)
+%RESOLVESCALINGAMBIGUITY Summary of this function goes here
+cam_xyz = rgb * M;
+sf = RobustGetScale(xyz, cam_xyz);
+M = eye(3) * sf * M;
+end
+
 function [ S ] = RobustGetScale( B, A )
 %ROBUSTGETSCALE Obtain the scaling factor between A and B
 
@@ -18,4 +25,3 @@ switch method
 end
 
 end
-

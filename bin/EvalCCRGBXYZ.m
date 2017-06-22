@@ -45,6 +45,11 @@ foldInd = p.Results.foldInd;
 wpXYZ = GetWpFromColourChecker(XYZ);
 wpRGB = GetWpFromColourChecker(RGB);
 
+% Normalise exposure by dividing the green channel
+% XYZ = XYZ./wpXYZ(2);
+% RGB = RGB./wpRGB(2);
+% wpXYZ = wpXYZ./wpXYZ(2);
+% wpRGB = wpRGB./wpRGB(2);
 
 % Calculate the number of folds
 foldCount = max(foldInd(:));
@@ -57,10 +62,6 @@ if size(RGB, 1) ~= size(XYZ,1)
     error('EvalCCRGBXYZ:input_size_mismatch', ... 
         'RGB matrix and XYZ matrix differ in size');
 end
-
-% normalise exposure by dividing G of white patch
-% xyz = xyz./wp(2);
-% wp = wp./wp(2);
 
 % CIELAB error matrix
 cielabE = [];

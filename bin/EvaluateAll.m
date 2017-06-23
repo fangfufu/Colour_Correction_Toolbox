@@ -6,7 +6,7 @@ function [ t ] = EvaluateAll()
 % load('HanGong_2015_Outdoor_Cloudy_RGB.mat');
 % load('HanGong_2015_Outdoor_Cloudy_XYZ.mat');
 load('Michal_New_Castle_Nikon_RGB.mat');
-load('Michal_New_Castle_Nikon_XYZ.mat')
+load('Michal_New_Castle_Nikon_XYZ.mat');
 
 load('CIE1931-JuddVos-2-deg.mat');
 load('Nikon_CSSF.mat');
@@ -23,9 +23,9 @@ foldInd = crossvalind('KFold',size(XYZ,1), 3);
 t = table();
 i = 1;
 
-% [ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, @GenCCLinear, @ApplyCCLinear, foldInd);
-% t(i,:) = GenerateTableRow(cielabE, 'Linear least squared');
-% i = i + 1;
+[ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, @GenCCLinear, @ApplyCCLinear, foldInd);
+t(i,:) = GenerateTableRow(cielabE, 'Linear least squared');
+i = i + 1;
 % 
 % GenCCPoly2 = @(rgb, XYZ) GenCCPolynomial(rgb, XYZ, 2);
 % [ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, GenCCPoly2, @ApplyCCPolynomial, foldInd);
@@ -47,10 +47,10 @@ i = 1;
 % t(i,:) = GenerateTableRow(cielabE, 'Third order root-polynomial');
 % i = i + 1;
 % % 
-[ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, @GenCCHomo, @ApplyCCLinear, foldInd);
-t(i,:) = GenerateTableRow(cielabE, '2D homography');
-i = i + 1;
-
+% [ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, @GenCCHomo, @ApplyCCLinear, foldInd);
+% t(i,:) = GenerateTableRow(cielabE, '2D homography');
+% i = i + 1;
+% 
 % [ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, @GenCCEnsemble, @ApplyCCEnsemble, foldInd);
 % t(i,:) = GenerateTableRow(cielabE, 'Ensemble method');
 % i = i + 1;
@@ -59,17 +59,17 @@ i = i + 1;
 % t(i,:) = GenerateTableRow(cielabE, 'Hue Plane Preserving');
 % i = i + 1;
 % 
-[ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, @GenCCAM, @ApplyCCLinear, foldInd);
-t(i,:) = GenerateTableRow(cielabE, 'Angular Minimisation');
+% [ cielabE ] = EvalCCRGBXYZ(RGB, XYZ, @GenCCAM, @ApplyCCLinear, foldInd);
+% t(i,:) = GenerateTableRow(cielabE, 'Angular Minimisation');
+% i = i + 1;
+% 
+[ cielabE ] = EvalCCRGBXYZMI(RGB, XYZ, cssf, cmf, @GenCCMIP, @ApplyCCLinear, 'cssfWl', cssfWl, 'cmfWl', cmfWl);
+t(i,:) = GenerateTableRow(cielabE, 'Maximum Ignorance with Positivity');
 i = i + 1;
-% 
-% [ cielabE ] = EvalCCRGBXYZMI(RGB, XYZ, cssf, cmf, @GenCCMIP, @ApplyCCLinear, 'cssfWl', cssfWl, 'cmfWl', cmfWl);
-% t(i,:) = GenerateTableRow(cielabE, 'Maximum Ignorance with Positivity');
-% i = i + 1;
-% 
-% [ cielabE ] = EvalCCRGBXYZMI(RGB, XYZ, cssf, cmf, @GenCCMI, @ApplyCCLinear, 'cssfWl', cssfWl, 'cmfWl', cmfWl);
-% t(i,:) = GenerateTableRow(cielabE, 'Maximum Ignorance');
-% i = i + 1;
+
+[ cielabE ] = EvalCCRGBXYZMI(RGB, XYZ, cssf, cmf, @GenCCMI, @ApplyCCLinear, 'cssfWl', cssfWl, 'cmfWl', cmfWl);
+t(i,:) = GenerateTableRow(cielabE, 'Maximum Ignorance');
+i = i + 1;
 
 %% Display the final table
 disp(t);

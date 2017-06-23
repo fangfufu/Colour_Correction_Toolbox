@@ -71,6 +71,12 @@ if ~isequal(size(cmf), size(cssf))
         'function and colour matching function, please supply both ', ...
         'cssfWl and cmfWl']);
 end
+
+%% Regularise input data
+cssf = cssf./max(cssf(:));
+cmf = cmf ./ max(cmf(:));
+RGB = RGB./max(RGB(:));
+XYZ = XYZ./max(XYZ(:));
 %% The main part
 
 % Get the whitepoints
@@ -85,6 +91,7 @@ ccm = genCC(cssf, cmf);
 
 % Compute the estimated XYZ and CIELAB values (e for estimated)
 eXYZ = applyCC(RGB, ccm); 
+eXYZ = eXYZ./max(eXYZ);
 eLAB = xyz2lab(eXYZ, 'WhitePoint', eXYZ(wpXYZind,:));
 
 % Calculate the CIELAB error

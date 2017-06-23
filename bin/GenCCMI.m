@@ -1,10 +1,13 @@
-function [ ccm ] = GenCCMI( rgb, xyz )
+function [ ccm ] = GenCCMI( cssf, cmf )
 %GENCCMI Generate colour correction matrix using Maximum Ignorance Colour
 %Correction
 %   Basically a wrapper function for GenCCLinear, for function name
 %   consistency
 
-ccm = GenCCLinear(rgb, xyz);
+cssf = cssf./max(cssf(:));
+cmf = cmf ./ max(cmf(:));
+
+ccm = GenCCLinear(cssf, cmf);
 
 end
 

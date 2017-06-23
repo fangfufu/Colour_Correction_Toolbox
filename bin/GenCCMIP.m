@@ -17,6 +17,9 @@ function [ m ] = GenCCMIP(cssf, cmf)
 %   Linear regression while enforcing individual independent variable to 
 %   be strictly positive
 
+cssf = cssf./max(cssf(:));
+cmf = cmf ./ max(cmf(:));
+
 llt = pos_ident_mat(max(size(cmf)));
 m = cmf' * llt * cssf * inv(cssf' * llt * cssf);
 

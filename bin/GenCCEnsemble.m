@@ -17,7 +17,7 @@ function [ ccm, eXyz ] = GenCCEnsemblePart1(rgb, xyz)
 
 ccm.ccmHomo = GenCCHomo(rgb, xyz);
 ccm.ccmHPP = GenCCHPP(rgb, xyz);
-ccm.ccmRP =  GenCCRootPolynomial(rgb, xyz, 2);
+ccm.ccmRP =  GenCCRootPolynomial(rgb, xyz, 2, 0);
 
 HomoXyz = ApplyCCLinear(rgb, ccm.ccmHomo);
 HPPXyz = ApplyCCHPP(rgb, ccm.ccmHPP);

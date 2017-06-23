@@ -46,10 +46,10 @@ wpXYZ = GetWpFromColourChecker(XYZ);
 wpRGB = GetWpFromColourChecker(RGB);
 
 % Normalise exposure by dividing the green channel
-% XYZ = XYZ./wpXYZ(2);
-% RGB = RGB./wpRGB(2);
-% wpXYZ = wpXYZ./wpXYZ(2);
-% wpRGB = wpRGB./wpRGB(2);
+XYZ = XYZ./wpXYZ(2);
+RGB = RGB./wpRGB(2);
+wpXYZ = wpXYZ./wpXYZ(2);
+wpRGB = wpRGB./wpRGB(2);
 
 % Calculate the number of folds
 foldCount = max(foldInd(:));

@@ -5,7 +5,7 @@ function [ cielabE ] = EvalCCRGBXYZMI( varargin )
 %   Required parameters:
 %       rgb : A n-times-3 matrix containing RGB response of the cameras, 
 %           n being the
-%       xyz : A n-times-3 matrix containing the  corresponding tristimulus
+%       xyz : A n-times-3 matrix containing the corresponding tristimulus
 %           values. 
 %       cssf : Camera spectral sensitivity function
 %       cmf :   Colour matching function
@@ -54,24 +54,6 @@ applyCC = p.Results.applyCC;
 cssfWl = p.Results.cssfWl;
 cmfWl = p.Results.cmfWl;
 
-% Re-interpolate cmf or cssf
-if ~isempty(cssfWl) && ~isempty(cmfWl)
-    if size(cmf,1) > size(cssf,1)
-        cmf = InterpData(cmf, cmfWl, cssfWl);
-    else
-        cssf = InterpData(cssf, cssfWl, cmfWl);
-    end
-end
-
-% Additional sanity check
-% Make sure that cmf and cssf have the same dimension
-if ~isequal(size(cmf), size(cssf))
-    error('EvalCCCSSFCMF:cssf_cmf_dimensional_mismatch', ...
-        ['Dimensional mismatch between camera spectral sensitiviy', ...
-        'function and colour matching function, please supply both ', ...
-        'cssfWl and cmfWl']);
-end
-
 %% Regularise input data
 cssf = cssf./max(cssf(:));
 cmf = cmf ./ max(cmf(:));
@@ -87,7 +69,7 @@ XYZ = XYZ./max(XYZ(:));
 LAB = xyz2lab(XYZ, 'WhitePoint', wpXYZ);
 
 % Compute colour correction matrix
-ccm = genCC(cssf, cmf);
+ccm = genCC(cssf, cmf, 'cssfWl', cssfWl, 'cmfWl', cmfWl);
 
 % Compute the estimated XYZ and CIELAB values (e for estimated)
 eXYZ = applyCC(RGB, ccm); 

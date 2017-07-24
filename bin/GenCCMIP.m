@@ -1,4 +1,4 @@
-function [ m ] = GenCCMIP(cssf, cmf)
+function [ m ] = GenCCMIP(cssf, cmf, varargin)
 %MIP Maximum Ignorance Colour Correction with Positivity
 %   %   [ m ] = GenCCMIP(cssf, cmf)
 %   
@@ -8,6 +8,11 @@ function [ m ] = GenCCMIP(cssf, cmf)
 %
 %       Both cssf and cmf are in the format of wavelengths-times-channel
 %
+%   Name-value parameters:
+%       cssfWl : The sampling wavelength for the camera spectral
+%       sensitivity function
+%       cmfWl : The sampling wavelength for the colour matching function
+%
 %   Reference:
 %       Finlayson, Graham D., and Mark S. Drew. 
 %       "The maximum ignorance assumption with positivity." 
@@ -16,6 +21,34 @@ function [ m ] = GenCCMIP(cssf, cmf)
 %
 %   Linear regression while enforcing individual independent variable to 
 %   be strictly positive
+
+%% Set up the input parser, for sanity check
+p = inputParser;
+addParameter(p, 'cssfWl', [], @(x) isvector(x));
+addParameter(p, 'cmfWl', [], @(x) isvector(x));
+parse(p, varargin{:});
+cssfWl = p.Results.cssfWl;
+cmfWl = p.Results.cmfWl;
+
+% Re-interpolate cmf or cssf
+if ~isempty(cssfWl) && ~isempty(cmfWl)
+    if size(cmf,1) > size(cssf,1)
+        cmf = InterpData(cmf, cmfWl, cssfWl);
+    else
+        cssf = InterpData(cssf, cssfWl, cmfWl);
+    end
+end
+
+% Additional sanity check
+% Make sure that cmf and cssf have the same dimension
+if ~isequal(size(cmf), size(cssf))
+    error('GenCCMI:cssf_cmf_dimensional_mismatch', ...
+        ['Dimensional mismatch between camera spectral sensitiviy', ...
+        'function and colour matching function, please supply both ', ...
+        'cssfWl and cmfWl']);
+end
+
+%% Generate colour correction matrix
 
 cssf = cssf./max(cssf(:));
 cmf = cmf ./ max(cmf(:));

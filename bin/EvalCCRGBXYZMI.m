@@ -54,16 +54,20 @@ applyCC = p.Results.applyCC;
 cssfWl = p.Results.cssfWl;
 cmfWl = p.Results.cmfWl;
 
-%% Regularise input data
-cssf = cssf./max(cssf(:));
-cmf = cmf ./ max(cmf(:));
-RGB = RGB./max(RGB(:));
-XYZ = XYZ./max(XYZ(:));
 %% The main part
 
 % Get the whitepoints
-[wpXYZ, wpXYZind] = GetWpFromColourChecker(XYZ);
-% wpRGB = GetWpFromColourChecker(RGB);
+wpXYZ = GetWpFromColourChecker(XYZ);
+wpRGB = GetWpFromColourChecker(RGB);
+
+% Regularise input data
+cssf = cssf./max(cssf(:));
+cmf = cmf ./ max(cmf(:));
+RGB = RGB./wpRGB(:,2);
+XYZ = XYZ./wpXYZ(:,2);
+wpRGB = wpRGB./wpRGB(2);
+wpXYZ = wpXYZ./wpXYZ(2);
+
 
 % The true CIELAB values
 LAB = xyz2lab(XYZ, 'WhitePoint', wpXYZ);
@@ -73,12 +77,14 @@ ccm = genCC(cssf, cmf, 'cssfWl', cssfWl, 'cmfWl', cmfWl);
 
 % Compute the estimated XYZ and CIELAB values (e for estimated)
 eXYZ = applyCC(RGB, ccm); 
-eXYZ = eXYZ./max(eXYZ);
-eLAB = xyz2lab(eXYZ, 'WhitePoint', eXYZ(wpXYZind,:));
+eWpXYZ = applyCC(wpRGB, ccm);
+eLAB = xyz2lab(eXYZ, 'WhitePoint', eWpXYZ);
 
 % Calculate the CIELAB error
 cielabE = sqrt(sum((LAB - eLAB).^2,2));
 disp(mean(cielabE));
 disp('');
+end
+
 end
 

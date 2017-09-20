@@ -1,4 +1,4 @@
-function [ m ] = GenCCMIP(cssf, cmf, varargin)
+function [ m ] = GenCCMIP( varargin )
 %MIP Maximum Ignorance Colour Correction with Positivity
 %   %   [ m ] = GenCCMIP(cssf, cmf)
 %   
@@ -21,12 +21,20 @@ function [ m ] = GenCCMIP(cssf, cmf, varargin)
 %
 %   Linear regression while enforcing individual independent variable to 
 %   be strictly positive
+if numel(varargin) == 1
+    varargin = varargin{1};
+end
+nargin = numel(varargin);
 
 %% Set up the input parser, for sanity check
 p = inputParser;
+addRequired(p, 'cssf', @(x) ismatrix(x));
+addRequired(p, 'cmf', @(x) ismatrix(x));
 addParameter(p, 'cssfWl', [], @(x) isvector(x));
 addParameter(p, 'cmfWl', [], @(x) isvector(x));
 parse(p, varargin{:});
+cssf = p.Results.cssf;
+cmf = p.Results.cmf;
 cssfWl = p.Results.cssfWl;
 cmfWl = p.Results.cmfWl;
 

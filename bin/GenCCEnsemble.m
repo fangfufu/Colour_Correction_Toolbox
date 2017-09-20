@@ -1,5 +1,13 @@
-function [ ccm ] = GenCCEnsemble(rgb, xyz)
+function [ ccm ] = GenCCEnsemble( varargin )
 %% GENCCENSEMBLE Generate the struct for ensemble colour correction
+
+if numel(varargin) == 1
+    varargin = varargin{1};
+end
+nargin = numel(varargin);
+
+rgb = varargin{1};
+xyz = varargin{2};
 
 [ ccm_1, eXyz ] = GenCCEnsemblePart1(rgb, xyz);
 

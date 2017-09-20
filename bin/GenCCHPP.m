@@ -1,4 +1,4 @@
-function [ ccm ] = GenCCHPP( rgb, xyz )
+function [ ccm ] = GenCCHPP(varargin)
 %% GENCCHPP Wrapper function for Hue Plane Preserving Colour Correction
 %   Note: that we are assuming the input training data contains a white
 %   patch. 
@@ -11,6 +11,13 @@ function [ ccm ] = GenCCHPP( rgb, xyz )
 %       xyz : A nx3 matrix containing the XYZ values corresponding to the
 %           RGB 
 %       
+
+if numel(varargin) == 1
+    varargin = varargin{1};
+end
+nargin = numel(varargin);
+rgb = varargin{1};
+xyz = varargin{2};
 
 %% Load settings
 load('/home/fangfufu/UEA/Colour_Correction_Toolbox/bin/nhppcc-toolbox/settings.mat', ...

@@ -1,4 +1,4 @@
-function M = GenCCHomo(rgb,xyz,max_iter,tol)
+function M = GenCCHomo(varargin)
 %% ALSHOMOCAL computes the colour correction matrix by using
 % the homogrpahy based method
 %
@@ -13,8 +13,25 @@ function M = GenCCHomo(rgb,xyz,max_iter,tol)
 % Finlayson, G. D., Gong, H., Fisher, B. R. (2016), Color homography,
 % Progress in Colour Studies.
 
-if nargin<3, max_iter = 50; end
-if nargin<4, tol = 1e-20; end
+if numel(varargin) == 1
+    varargin = varargin{1};
+end
+nargin = numel(varargin);
+
+rgb = varargin{1};
+xyz = varargin{2};
+
+if nargin<3
+    max_iter = 50;
+else
+    max_iter = varargin{3};
+end
+
+if nargin<4
+    tol = 1e-20;
+else
+    tol = varargin{4};
+end
 
 M = uea_H_from_x_als(rgb',xyz',max_iter,tol);
 

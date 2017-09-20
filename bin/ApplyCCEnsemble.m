@@ -17,4 +17,3 @@ end
 xyz = ensembleXyz * ccm.ensemble;
 
 end
-

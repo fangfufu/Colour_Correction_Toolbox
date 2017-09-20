@@ -1,4 +1,4 @@
-function M = GenCCALS(rgb,xyz,Niter)
+function M = GenCCALS(varargin)
 %% GENCCALS computes the colour correction matrix by using
 % the alternating least squares method with a diagnoal
 % shading matrix
@@ -15,7 +15,19 @@ function M = GenCCALS(rgb,xyz,Niter)
 % The alternating least squares technique for nonuniform intensity color
 % correction. Color Res. Appl., 40: 232–242.
 
-if nargin<3, Niter = 100; end
+if numel(varargin) == 1
+    varargin = varargin{1};
+end
+nargin = numel(varargin);
+
+rgb = varargin{1};
+xyz = varargin{2};
+
+if nargin<3
+    Niter = 100; 
+else
+    Niter = varargin{3};
+end
 
 Npatch = size(rgb,1); % number of patches
 D = speye(Npatch); % initialise shading matrix

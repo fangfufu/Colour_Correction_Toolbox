@@ -1,4 +1,4 @@
-function [ ccm ] = GenCCPolynomial( rgb, xyz, deg, t_factor )
+function [ ccm ] = GenCCPolynomial( varargin )
 %% GenCCPolynomial Generate Polynomial Colour Correction Matrix
 %   Parameters :
 %       rgb : n-times-3 array containing colour triplets, or an 
@@ -18,15 +18,22 @@ function [ ccm ] = GenCCPolynomial( rgb, xyz, deg, t_factor )
 %   Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
 %   University of East Anglia
 %   Licensed under the MIT License
-if exist('t_factor', 'var')
+
+if numel(varargin) == 1
+    varargin = varargin{1};
+end
+nargin = numel(varargin);
+rgb = varargin{1};
+xyz = varargin{2};
+deg = varargin{3};
+
+if nargin == 4
+    t_factor = varargin{4};
+    
     if ndims(rgb)
         rgb = reshape(rgb, [], 3);
     end
-
-    if ~exist('t_factor', 'var')
-        t_factor = 0;
-    end
-
+    
     rgb_x = SPolynomialMat(rgb, deg);
     ccm = (rgb_x' * rgb_x + t_factor * eye(size(rgb_x,2)) ) \ (rgb_x' * xyz);
 else

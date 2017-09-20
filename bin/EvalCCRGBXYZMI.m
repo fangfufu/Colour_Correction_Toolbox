@@ -86,5 +86,4 @@ disp(mean(cielabE));
 disp('');
 end
 
-end
 

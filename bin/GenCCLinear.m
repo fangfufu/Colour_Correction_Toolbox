@@ -1,4 +1,4 @@
-function [ ccm ] = GenCCLinear( rgb, xyz )
+function [ ccm ] = GenCCLinear(varargin)
 %% CCLINEAR Generate linear colour correction matrix
 %   Parameters : 
 %       rgb : n-times-3 array containing colour triplets, or an 
@@ -16,6 +16,13 @@ function [ ccm ] = GenCCLinear( rgb, xyz )
 %   Copyright (c) 2016 Fufu Fang <f.fang@uea.ac.uk>, 
 %   University of East Anglia
 %   Licensed under the MIT License
+
+if numel(varargin) == 1
+    varargin = varargin{1};
+end
+nargin = numel(varargin);
+rgb = varargin{1};
+xyz = varargin{2};
 
 ccm = rgb\xyz;
 

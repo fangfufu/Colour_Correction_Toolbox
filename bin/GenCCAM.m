@@ -1,4 +1,4 @@
-function M = GenCCAM(rgb,xyz)
+function M = GenCCAM(varargin)
 % AMCAL computes the colour correction matrix by using
 % angular minimisation.
 %
@@ -13,6 +13,14 @@ function M = GenCCAM(rgb,xyz)
 % Funt, B., and P. Bastani. "Intensity independent rgb-to-xyz colour
 % camera calibration." AIC (International Colour Association) Conference.
 % Vol. 5. 2012.
+
+if numel(varargin) == 1
+    varargin = varargin{1};
+end
+nargin = numel(varargin);
+
+rgb = varargin{1};
+xyz = varargin{2};
 
 M0 = rgb\xyz;
 opt = optimset('MaxFunEvals',50000,'MaxIter',50000);

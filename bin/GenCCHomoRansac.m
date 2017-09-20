@@ -1,4 +1,4 @@
-function H = GenCCHomoRansac(rgb,xyz,white)
+function H = GenCCHomoRansac(varargin)
 % GenCCHomoRansac computes the colour correction matrix by using
 % the homography based method plus RANSAC
 
@@ -20,6 +20,15 @@ function H = GenCCHomoRansac(rgb,xyz,white)
 % Han Gong <gong@fedoraproject.org>
 % School of Computing Sciences
 % University of East Anglia
+
+if numel(varargin) == 1
+    varargin = varargin{1};
+end
+nargin = numel(varargin);
+rgb = varargin{1};
+xyz = varargin{2};
+white = varargin{3};
+
 
 [H,inliers] = uea_alsransac_luv(rgb',xyz',white',0.2);
 % print in for debug

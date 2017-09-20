@@ -1,4 +1,4 @@
-function [ ccm ] = GenCCMI( cssf, cmf, varargin)
+function [ ccm ] = GenCCMI(varargin)
 %GENCCMI Generate colour correction matrix using Maximum Ignorance Colour
 %Correction
 %   Basically a wrapper function for GenCCLinear, for function name
@@ -9,11 +9,20 @@ function [ ccm ] = GenCCMI( cssf, cmf, varargin)
 %       sensitivity function
 %       cmfWl : The sampling wavelength for the colour matching function
 
+if numel(varargin) == 1
+    varargin = varargin{1};
+end
+nargin = numel(varargin);
+
 %% Set up the input parser, for sanity check
 p = inputParser;
+addRequired(p, 'cssf', @(x) ismatrix(x));
+addRequired(p, 'cmf', @(x) ismatrix(x));
 addParameter(p, 'cssfWl', [], @(x) isvector(x));
 addParameter(p, 'cmfWl', [], @(x) isvector(x));
 parse(p, varargin{:});
+cssf = p.Results.cssf;
+cmf = p.Results.cmf;
 cssfWl = p.Results.cssfWl;
 cmfWl = p.Results.cmfWl;
 

@@ -22,3 +22,7 @@ These are done in order to comply with equation (4a) and (4b) in [1].
 ## References
 1. Finlayson, Graham D., and Mark S. Drew. "The maximum ignorance assumption with positivity." Color and Imaging Conference. Vol. 1996. No. 1. Society for Imaging Science and Technology, 1996.
 APA
+
+
+Copyright (c) 2016-2017 Fufu Fang, Han Gong, Graham Finlayson
+University of East Anglia, UK.

@@ -1,5 +1,5 @@
 function [ g, f ] = imshowGammaAdjust( img )
-%% IMSHOWGAMMAADJUST Determine a desired gamma value for an image
+%% IMSHOWGAMMAADJUST Set a desired gamma value for an image
 img = im2double(img);
 while(true)
     str = inputdlg('Please input a gamma value:',...

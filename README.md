@@ -25,7 +25,7 @@ Fufu Fang, Han Gong, Michal Mackiewicz, Graham Finlayson. "Colour Correction Too
 Please cite the above reference if you have used the code in this toolbox for your work.
 
 ## Errata in the paper
-The reference ```[16]  G. D. Finlayson, H. Gong and R. B. Fisher, “Color homography color correction,” Color and Imaging Conf., pp. 310-314, 2016.``` in the official manuscript should be ```G. D. Finlayson, H. Gong and R. B. Fisher, “Color homography color”, Progress in Colour Studies (PICS), 2016```(i.e. References 4. abvoe). This is because the evaluation for ```Color Homography Color Correction``` carried out in the paper does not contain the RANSAC procedure.
+The reference ```[16]  G. D. Finlayson, H. Gong and R. B. Fisher, “Color homography color correction,” Color and Imaging Conf., pp. 310-314, 2016.``` in the official manuscript should be ```G. D. Finlayson, H. Gong and R. B. Fisher, “Color homography color”, Progress in Colour Studies (PICS), 2016```(i.e. References 4. below). This is because the evaluation for ```Color Homography Color Correction``` carried out in the paper does not contain the RANSAC procedure.
 
 ## References of the methods (stably) implemented in this toolbox
 1. Finlayson, Graham D., and Mark S. Drew. "The maximum ignorance assumption with positivity", Color and Imaging Conference. Vol. 1996. No. 1. Society for Imaging Science and Technology, 1996.

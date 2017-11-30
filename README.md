@@ -15,11 +15,11 @@
       * SFU illuminant database
 
 ## API / Data format
-  * colour matrices: $n \times 3$, this include rgb camera readings, xyz tristimulus triplets, camera sensitivity function, or colour matching function.
-  * wave spectrum: $n \times 1$, this includes reflectance spectrum, illuminant spectrum.
-These are done in order to comply with equation (4a) and (4b) in [1].
+  * colour matrices: nx3, this include rgb camera readings, xyz tristimulus triplets, camera sensitivity function, or colour matching function.
+  * wave spectrum: nx1, this includes reflectance spectrum, illuminant spectrum.
+These are done in order to comply with equation (4a) and (4b) in reference 5.
 
-## Reference
+## Cite this work
 Fufu Fang, Han Gong, Michal Mackiewicz, Graham Finlayson. "Colour Correction Toolbox", International Colour Association Congress (AIC), 2017
 
 Please cite the above reference if you have used the code in this toolbox for your work.
